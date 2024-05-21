@@ -1,5 +1,7 @@
-import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
+import { asyncStorageService } from '../../../services/async-storage.service.js'
+import { storageService } from '../../../services/storage.service.js'
+
 
 const MAIL_KEY = 'mailDB'
 const loggedinUser = { email: 'roy@appsus.com', fullname: 'Roy Shacked' }
@@ -19,7 +21,7 @@ export const mailService = {
 // window.cs = mailService
 
 function query(filterBy = {}) {
-    return storageService.query(MAIL_KEY)
+    return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
@@ -30,7 +32,7 @@ function query(filterBy = {}) {
 }
 
 function get(mailId) {
-    return storageService.get(MAIL_KEY, mailId)
+    return asyncStorageService.get(MAIL_KEY, mailId)
         .then(mail => {
             mail = _setNextprevMailId(mail)
             return mail
@@ -38,14 +40,14 @@ function get(mailId) {
 }
 
 function remove(mailId) {
-    return storageService.remove(MAIL_KEY, mailId)
+    return asyncStorageService.remove(MAIL_KEY, mailId)
 }
 
 function save(mail) {
     if (mail.id) {
-        return storageService.put(MAIL_KEY, mail)
+        return asyncStorageService.put(MAIL_KEY, mail)
     } else {
-        return storageService.post(MAIL_KEY, mail)
+        return asyncStorageService.post(MAIL_KEY, mail)
     }
 }
 
@@ -72,7 +74,7 @@ function getFilterFromSearchParams(searchParams) {
 }
 
 function _setNextprevMailId(mail) {
-    return storageService.query(MAIL_KEY).then((mails) => {
+    return asyncStorageService.query(MAIL_KEY).then((mails) => {
         const mailIdx = mails.findIndex((currMail) => currMail.id === mail.id)
         const nextMail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
         const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
@@ -84,7 +86,7 @@ function _setNextprevMailId(mail) {
 
 
 function _createMails() {
-    let mails = utilService.loadFromStorage(MAIL_KEY)
+    let mails = storageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
         for (let i = 0; i < 20; i++) {
@@ -100,7 +102,7 @@ function _createMails() {
             }
             mails.push(mail)
         }
-        utilService.saveToStorage(MAIL_KEY, mails)
+        storageService.saveToStorage(MAIL_KEY, mails)
     }
 }
 
@@ -114,7 +116,7 @@ function _createMails() {
 
 
 // function getSpeedStats() {
-//     return storageService.query(MAIL_KEY)
+//     return asyncStorageService.query(MAIL_KEY)
 //         .then(mails => {
 //             const mailCountBySpeedMap = _getmailCountBySpeedMap(mails)
 //             const data = Object.keys(mailCountBySpeedMap).map(speedName => ({ title: speedName, value: mailCountBySpeedMap[speedName] }))
@@ -124,7 +126,7 @@ function _createMails() {
 // }
 
 // function getVendorStats() {
-//     return storageService.query(MAIL_KEY)
+//     return asyncStorageService.query(MAIL_KEY)
 //         .then(mails => {
 //             const mailCountByVendorMap = _getmailCountByVendorMap(mails)
 //             const data = Object.keys(mailCountByVendorMap)
