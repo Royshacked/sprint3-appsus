@@ -1,1 +1,13 @@
-.mail-preview {}
+.mail-preview {
+    display: grid;
+    grid-template-columns: 2fr 2fr 0.5fr;
+    justify-content: space-between;
+
+    gap: 1em;
+
+    flex-grow: 2;
+}
+
+.mail-preview span {
+    text-align: start;
+}

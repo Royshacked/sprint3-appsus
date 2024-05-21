@@ -1,3 +1,11 @@
+ .mail-list {
+     margin-inline-end: 1em;
+     margin-block-end: 2em;
+     border-radius: 1em;
+
+     background-color: whitesmoke;
+ }
+
  .mail-list li {
      display: flex;
      align-items: center;
@@ -19,5 +27,5 @@
  }
 
  .mail-list li:hover {
-     background-color: rgb(205, 231, 240);
+     background-color: var(--main-bg-color);
  }

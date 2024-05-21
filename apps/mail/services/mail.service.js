@@ -97,7 +97,7 @@ function _createMails() {
                 isRead: false,
                 sentAt: Date.now(),
                 removedAt: null,
-                from: '',
+                from: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
                 to: loggedinUser,
             }
             mails.push(mail)

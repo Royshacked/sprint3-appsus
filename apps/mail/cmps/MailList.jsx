@@ -7,7 +7,7 @@ export function MailList({ mails }) {
             {mails.map(mail =>
                 <li key={mail.id}>
                     <button className="starred-btn">&#9734;</button>
-                    <MailPreview />
+                    <MailPreview mail={mail} />
                 </li>
             )}
         </ul>
