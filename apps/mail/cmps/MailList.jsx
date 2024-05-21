@@ -1,3 +1,6 @@
-export function MailList() {
-    return <div>Mail list</div>
+export function MailList({ mails }) {
+
+    return <section className="mail-list">
+
+    </section>
 }

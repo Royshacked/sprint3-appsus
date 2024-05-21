@@ -95,7 +95,7 @@ function _createMails() {
                 subject: utilService.makeLorem(3),
                 body: utilService.makeLorem(20),
                 isRead: false,
-                sentAt: null,
+                sentAt: Date.now(),
                 removedAt: null,
                 from: '',
                 to: loggedinUser,

@@ -1,1 +1,35 @@
- /* mail index  */
+.mail-index {
+    display: grid;
+    grid-template-columns:
+        minmax(100px, 1fr) minmax(auto, 4fr);
+}
+
+.mail-index>* {
+    grid-column: 2;
+}
+
+.mail-index>.full {
+    grid-column: 1 / -1;
+}
+
+.mail-index-header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    margin-block-start: 1em;
+    padding-inline: 1em;
+    padding-block: 0.5em;
+
+    background-color: var(--main-bg-color);
+}
+
+.mail-index-header h2 {
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
+.mail-index-header img {
+    width: 50px;
+}
