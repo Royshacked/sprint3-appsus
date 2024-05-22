@@ -1,7 +1,7 @@
 .mail-index {
     display: grid;
     grid-template-columns:
-        minmax(100px, 1fr) minmax(auto, 4fr);
+        minmax(50px, 1fr) minmax(auto, 5fr);
 }
 
 .mail-index>* {
@@ -13,6 +13,8 @@
 }
 
 .mail-index-header {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: start;
     align-items: center;

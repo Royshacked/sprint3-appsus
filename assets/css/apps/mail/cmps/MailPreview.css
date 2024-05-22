@@ -6,13 +6,9 @@
 
     gap: 1em;
 
-    flex-grow: 2;
+    color: rgb(75, 71, 71);
 }
 
 .mail-preview span {
-    text-align: start;
-}
-
-.mail-preview span:last-of-type {
     width: max-content;
 }
