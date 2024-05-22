@@ -12,3 +12,7 @@
 .mail-preview span {
     text-align: start;
 }
+
+.mail-preview span:last-of-type {
+    width: max-content;
+}

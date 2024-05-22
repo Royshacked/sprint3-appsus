@@ -3,7 +3,7 @@
      margin-block-end: 2em;
      border-radius: 1em;
 
-     background-color: whitesmoke;
+     background-color: white;
  }
 
  .mail-list ul {
@@ -15,6 +15,7 @@
      align-items: center;
 
      border-block-end: 1px solid lightgray;
+     padding: 0.5em;
 
      font-size: 1em;
      font-family: Arial, Helvetica, sans-serif;
