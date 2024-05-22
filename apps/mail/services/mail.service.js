@@ -69,7 +69,11 @@ function getDefaultFilter(filterBy = { txt: '' }) {
 
 function getFilterFromSearchParams(searchParams) {
     return {
+        status: searchParams.get('status') || '',
         txt: searchParams.get('txt') || '',
+        isRead: searchParams.get('isRead') || false,
+        isStarred: searchParams.get('isStarred') || false,
+        lables: searchParams.get('lables') || [],
     }
 }
 
