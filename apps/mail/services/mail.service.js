@@ -14,10 +14,9 @@ export const mailService = {
     remove,
     save,
     getEmptyMail,
-    getDefaultFilter,
     getFilterFromSearchParams
 }
-// For Debug (easy access from console):
+
 // window.cs = mailService
 
 function query(filterBy = {}) {
@@ -27,6 +26,9 @@ function query(filterBy = {}) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject))
             }
+            // if (filterBy.isRead !== 'All') {
+            //     mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            // }
             return mails
         })
 }
@@ -63,13 +65,13 @@ function getEmptyMail() {
     }
 }
 
-function getDefaultFilter(filterBy = { txt: '' }) {
-    return { txt: filterBy.txt }
-}
-
 function getFilterFromSearchParams(searchParams) {
     return {
+        status: searchParams.get('status') || '',
         txt: searchParams.get('txt') || '',
+        isRead: searchParams.get('isRead') || 'All',
+        isStarred: searchParams.get('isStarred') || false,
+        lables: searchParams.get('lables') || [],
     }
 }
 
