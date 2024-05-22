@@ -18,7 +18,7 @@ export function MailIndex() {
     }, [filterBy])
 
     function onSetFilterBy(newFilterBy) {
-        setFilterBy(newFilterBy)
+        setFilterBy({ ...newFilterBy })
     }
 
     return <section className="mail-index">
