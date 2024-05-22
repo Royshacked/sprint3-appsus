@@ -10,7 +10,7 @@ export function MailList({ mails }) {
             {mails.map(mail =>
                 <li key={mail.id} className={mail.isRead ? 'read' : ''}>
                     <button className="starred-btn">&#9734;</button>
-                    <Link to={`/mail/:${mail.id}`} ><MailPreview mail={mail} /></Link>
+                    <Link to={`/mail/${mail.id}`} ><MailPreview mail={mail} /></Link>
                 </li>
             )}
         </ul>
