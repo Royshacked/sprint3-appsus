@@ -28,8 +28,8 @@ export function MailDetails() {
             .finally(() => setIsLoading(false))
 
     }
-    console.log(mail)
-    if (isLoading) return <h2>Loading...</h2>
+
+    if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
             <Link to="/mail" ><button>back</button></Link>

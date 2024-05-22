@@ -39,3 +39,41 @@
 .mail-index-header img {
     width: 4em;
 }
+
+.no-emails {
+    width: 50%;
+
+    border-radius: 1em;
+    padding: 2em;
+
+    background-color: white;
+    color: gray;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    box-sizing: border-box;
+
+    width: 48px;
+    height: 48px;
+
+    margin: auto;
+    border: 5px solid gray;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

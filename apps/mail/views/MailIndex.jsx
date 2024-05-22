@@ -10,11 +10,14 @@ export function MailIndex() {
     const [mails, setMails] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        setIsLoading(true)
         setSearchParams(filterBy)
         mailService.query(filterBy)
             .then(mails => setMails(mails))
+            .finally(() => setIsLoading(false))
     }, [filterBy])
 
     function onSetFilterBy(newFilterBy) {
@@ -31,7 +34,9 @@ export function MailIndex() {
             </div>
             <MailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </div>
-        <MailList mails={mails} />
+        {isLoading && <div className="loading"></div>}
+        {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
+        {!isLoading && mails.length > 0 && <MailList mails={mails} />}
     </section>
 }
 

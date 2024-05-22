@@ -40,13 +40,3 @@
  .read {
      background-color: var(--main-bg-color);
  }
-
- .no-emails {
-     width: 50%;
-
-     border-radius: 1em;
-     padding: 2em;
-
-     background-color: white;
-     color: gray;
- }

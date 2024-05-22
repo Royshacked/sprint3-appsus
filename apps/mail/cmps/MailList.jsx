@@ -3,7 +3,7 @@ import { MailPreview } from "./MailPreview.jsx";
 const { Link } = ReactRouterDOM
 
 export function MailList({ mails }) {
-    if (mails.length === 0) return <h2 className="no-emails">no emails found...</h2>
+
     return <section className="mail-list">
         <ul>
             {mails.map(mail =>
