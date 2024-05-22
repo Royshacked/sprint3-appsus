@@ -26,9 +26,9 @@ function query(filterBy = {}) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject))
             }
-            // if (filterBy.isRead !== 'All') {
-            //     mails = mails.filter(mail => mail.isRead === filterBy.isRead)
-            // }
+            if (filterBy.isRead !== 'All') {
+                mails = mails.filter(mail => mail.isRead == filterBy.isRead)
+            }
             return mails
         })
 }
@@ -75,6 +75,8 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
+// Private functions
+
 function _setNextprevMailId(mail) {
     return asyncStorageService.query(MAIL_KEY).then((mails) => {
         const mailIdx = mails.findIndex((currMail) => currMail.id === mail.id)
@@ -107,15 +109,6 @@ function _createMails() {
         storageService.saveToStorage(MAIL_KEY, mails)
     }
 }
-
-// function _createMail() {
-//     const mail = getEmptymail()
-//     mail.id = utilService.makeId()
-//     return mail
-// }
-
-
-
 
 // function getSpeedStats() {
 //     return asyncStorageService.query(MAIL_KEY)

@@ -18,9 +18,9 @@ export function MailFilter({ filterBy, onFilter }) {
     return <section className="mail-filter">
         <input onChange={handleChange} type="txt" name="txt" value={filterByToEdit.txt} />
         <select onChange={handleChange} name="isRead" value={filterByToEdit.isRead}>
-            <option value={null}>All</option>
-            <option value={true}>Read</option>
-            <option value={false}>Unread</option>
+            <option >All</option>
+            <option value={'true'}>Read</option>
+            <option value={''}>Unread</option>
         </select>
     </section>
 }
