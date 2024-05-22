@@ -17,19 +17,23 @@
     justify-content: start;
     align-items: center;
 
-    margin-block-start: 1em;
-    padding-inline: 1em;
-    padding-block: 0.5em;
+    padding: 1em;
 
     background-color: var(--main-bg-color);
 }
 
+.mail-index-header .logo {
+    display: flex;
+    align-items: center;
+}
+
 .mail-index-header h2 {
+    font-size: 2em;
     font-family: Arial, sans-serif;
     font-weight: 400;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
 }
 
 .mail-index-header img {
-    width: 50px;
+    width: 4em;
 }

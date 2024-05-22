@@ -1,1 +1,35 @@
-.mail-filter {}
+.mail-filter {
+    width: 50%;
+    margin: auto;
+}
+
+.mail-filter input {
+    width: 50%;
+    height: 50px;
+    border: 0;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    padding: 1em;
+    outline: none;
+
+    background-color: rgb(194, 240, 255);
+
+    cursor: pointer;
+}
+
+.mail-filter select {
+    width: min-content;
+    height: 50px;
+    border: 0;
+    border-inline-start: 1px solid rgb(204, 197, 197);
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    padding: 1em;
+    outline: none;
+
+    color: gray;
+
+    background-color: rgb(194, 240, 255);
+
+    cursor: pointer;
+}

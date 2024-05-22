@@ -16,7 +16,7 @@ export function MailFilter({ filterBy, onFilter }) {
     }
 
     return <section className="mail-filter">
-        <input onChange={handleChange} type="txt" name="txt" value={filterByToEdit.txt} />
+        <input onChange={handleChange} type="search" name="txt" value={filterByToEdit.txt} placeholder="Search" />
         <select onChange={handleChange} name="isRead" value={filterByToEdit.isRead}>
             <option >All</option>
             <option value={'true'}>Read</option>

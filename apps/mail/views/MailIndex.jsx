@@ -23,10 +23,12 @@ export function MailIndex() {
 
     return <section className="mail-index">
         <div className="mail-index-header full">
-            <h2>
-                Gmail
-            </h2>
-            <img src="../../../assets/icons/Gmail-Logo.png"></img>
+            <div className="logo">
+                <h2>
+                    Gmail
+                </h2>
+                <img src="../../../assets/icons/Gmail-Logo.png"></img>
+            </div>
             <MailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </div>
         <MailList mails={mails} />
