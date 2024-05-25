@@ -27,7 +27,8 @@ function query(filterBy = {}) {
                 mails = mails.filter(mail => regExp.test(mail.subject))
             }
             if (filterBy.isRead !== 'All') {
-                mails = mails.filter(mail => mail.isRead == filterBy.isRead)
+                if(filterBy.isRead==='true') mails = mails.filter(mail => mail.isRead===true)
+                if(filterBy.isRead==='false') mails = mails.filter(mail => mail.isRead===false)   
             }
             return mails
         })

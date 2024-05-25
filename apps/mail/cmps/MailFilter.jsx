@@ -20,7 +20,7 @@ export function MailFilter({ filterBy, onFilter }) {
         <select onChange={handleChange} name="isRead" value={filterByToEdit.isRead}>
             <option >All</option>
             <option value={'true'}>Read</option>
-            <option value={''}>Unread</option>
+            <option value={'false'}>Unread</option>
         </select>
     </section>
 }
