@@ -1,9 +1,13 @@
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { mailService } from "../services/mail.service.js"
+import { eventBusService, showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
+const { useNavigate } = ReactRouter
+
 
 
 export function MailIndex() {
@@ -11,6 +15,8 @@ export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [isLoading, setIsLoading] = useState(true)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setIsLoading(true)
@@ -26,7 +32,12 @@ export function MailIndex() {
 
     function onRemove(mailId) {
         mailService.remove(mailId)
-            .then(setMails(prevMails => prevMails.filter(mail => mail.id !== mailId)))
+            .then(() => {
+                setMails(prevMails => prevMails.filter(mail => mail.id !== mailId))
+                showSuccessMsg('email removed successfully')
+            })
+            .catch(() => showErrorMsg('couldnt remove email'))
+            .finally(navigate('/mail'))
     }
 
     return <section className="mail-index">
