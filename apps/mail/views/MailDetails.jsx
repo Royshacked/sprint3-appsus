@@ -20,6 +20,10 @@ export function MailDetails() {
         setIsLoading(true)
 
         mailService.get(mailId)
+            .then(mail => {
+                mail.isRead = true
+                return mailService.save(mail)
+            })
             .then(mail => setMail(mail))
             .catch(err => {
                 navigate('/mail')

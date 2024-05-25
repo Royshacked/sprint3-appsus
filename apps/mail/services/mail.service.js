@@ -75,6 +75,10 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
+function setAsRead(mailId) {
+
+}
+
 // Private functions
 
 function _setNextprevMailId(mail) {
