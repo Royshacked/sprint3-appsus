@@ -70,8 +70,8 @@ function getFilterFromSearchParams(searchParams) {
         status: searchParams.get('status') || '',
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'All',
-        isStarred: searchParams.get('isStarred') || false,
-        lables: searchParams.get('lables') || [],
+        isStarred: searchParams.get('isStarred') || '',
+        lables: searchParams.get('lables') || '',
     }
 }
 
