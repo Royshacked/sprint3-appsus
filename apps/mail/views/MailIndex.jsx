@@ -24,6 +24,11 @@ export function MailIndex() {
         setFilterBy({ ...newFilterBy })
     }
 
+    function onRemove(mailId) {
+        mailService.remove(mailId)
+            .then(setMails(prevMails => prevMails.filter(mail => mail.id !== mailId)))
+    }
+
     return <section className="mail-index">
         <div className="mail-index-header full">
             <div className="logo">
@@ -36,7 +41,7 @@ export function MailIndex() {
         </div>
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
-        {!isLoading && mails.length > 0 && <MailList mails={mails} />}
+        {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} />}
     </section>
 }
 

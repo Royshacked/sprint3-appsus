@@ -23,7 +23,7 @@
      font-size: 1em;
      font-family: Arial, Helvetica, sans-serif;
 
-     transition: 0.2s;
+     /* transition: 0.2s; */
  }
 
  .mail-list .starred-btn {
@@ -34,7 +34,15 @@
  }
 
  .mail-list li:hover {
-     background-color: var(--main-bg-color);
+     border-block-end: 2px solid lightgray;
+ }
+
+ .mail-list li:hover .mail-btns {
+     display: inline;
+ }
+
+ .mail-list li:hover .mail-date {
+     display: none;
  }
 
  .read {

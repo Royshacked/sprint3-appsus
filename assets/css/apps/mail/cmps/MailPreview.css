@@ -12,3 +12,7 @@
 .mail-preview span {
     width: max-content;
 }
+
+.mail-btns {
+    display: none;
+}
