@@ -2,6 +2,7 @@ import { MailTopFilter } from "../cmps/MailTopFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { mailService } from "../services/mail.service.js"
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import { MailSideFilter } from "../cmps/MailSideFilter.jsx"
 
 
 const { useState, useEffect } = React
@@ -50,6 +51,8 @@ export function MailIndex() {
             </div>
             <MailTopFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </div>
+
+        <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
         {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} />}
