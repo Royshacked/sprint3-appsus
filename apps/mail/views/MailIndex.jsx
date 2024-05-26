@@ -1,4 +1,4 @@
-import { MailFilter } from "../cmps/MailFilter.jsx"
+import { MailTopFilter } from "../cmps/MailTopFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { mailService } from "../services/mail.service.js"
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
@@ -48,7 +48,7 @@ export function MailIndex() {
                 </h2>
                 <img src="../../../assets/icons/Gmail-Logo.png"></img>
             </div>
-            <MailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+            <MailTopFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </div>
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
