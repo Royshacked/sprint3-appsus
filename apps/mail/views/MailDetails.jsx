@@ -15,7 +15,7 @@ export function MailDetails() {
 
     useEffect(() => {
         loadMail()
-    }, [])
+    }, [mailId])
 
     function loadMail() {
         setIsLoading(true)
@@ -55,8 +55,8 @@ export function MailDetails() {
             <button>save as note</button>
             <button>category</button>
             <button>category</button>
-            <button>prev</button>
-            <button>next</button>
+            <Link to={`/mail/${mail.prevMailId}`}><button>older</button></Link>
+            <Link to={`/mail/${mail.nextMailId}`}><button>newer</button></Link>
         </header>
         <h2>{mail.subject}</h2>
         <p>{mail.from}</p>
