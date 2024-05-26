@@ -5,6 +5,7 @@
      border-top-right-radius: 1em;
 
      background-color: white;
+     font-weight: bold;
  }
 
  .mail-list ul {
@@ -22,7 +23,7 @@
 
      font-size: 1em;
      font-family: Arial, Helvetica, sans-serif;
-
+     /* font-weight: bold; */
      /* transition: 0.2s; */
  }
 
@@ -47,4 +48,5 @@
 
  .read {
      background-color: var(--main-bg-color);
+     font-weight: normal;
  }
