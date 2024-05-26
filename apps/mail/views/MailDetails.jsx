@@ -1,3 +1,4 @@
+import { showSuccessMsg } from "../../../services/event-bus.service.js"
 import { mailService } from "../services/mail.service.js"
 
 const { useState, useEffect } = React
@@ -30,14 +31,26 @@ export function MailDetails() {
                 alert(err)
             })
             .finally(() => setIsLoading(false))
+    }
 
+    function onRemove(mailId) {
+        mailService.remove(mailId)
+            .then(() => {
+                showSuccessMsg('email removed successfully')
+                navigate('/mail')
+            })
+            .catch(() => {
+                showErrorMsg('couldnt remove email')
+                navigate('/mail')
+            })
+        // .finally(navigate('/mail'))
     }
 
     if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
             <Link to="/mail" ><button>back</button></Link>
-            <button>remove</button>
+            <button onClick={() => onRemove(mailId)}>remove</button>
             <button>mark as unread</button>
             <button>save as note</button>
             <button>category</button>
