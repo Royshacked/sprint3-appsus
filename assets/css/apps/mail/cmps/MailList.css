@@ -1,6 +1,7 @@
  .mail-list {
+     min-height: calc(100vh - 144px);
      margin-inline-end: 1em;
-     margin-block-end: 2em;
+     /* margin-block-end: 2em; */
      border-top-left-radius: 1em;
      border-top-right-radius: 1em;
 

@@ -14,7 +14,7 @@ export const mailService = {
     remove,
     save,
     getEmptyMail,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
 }
 
 // window.cs = mailService
@@ -69,7 +69,7 @@ function getEmptyMail() {
 
 function getFilterFromSearchParams(searchParams) {
     return {
-        status: searchParams.get('status') || '',
+        status: searchParams.get('status') || 'inbox',
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'All',
         // isStarred: searchParams.get('isStarred') || '',
@@ -129,6 +129,7 @@ function _filterByMailStatus(mails, status) {
             return mails.filter(mail => mail.to.email === loggedinUser.email)
     }
 }
+
 
 // function getSpeedStats() {
 //     return asyncStorageService.query(MAIL_KEY)

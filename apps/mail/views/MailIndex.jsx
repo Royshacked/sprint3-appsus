@@ -16,6 +16,7 @@ export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [isLoading, setIsLoading] = useState(true)
+    const [unreadMailsCount, setUnreadMailsCount] = useState(0)
 
     const navigate = useNavigate()
 
@@ -26,6 +27,15 @@ export function MailIndex() {
             .then(mails => setMails(mails))
             .finally(() => setIsLoading(false))
     }, [filterBy])
+
+    useEffect(() => {
+        mailService.query()
+            .then(mails => mails.reduce((acc, mail) => {
+                if (!mail.isRead) acc++
+                return acc
+            }, 0))
+            .then(count => setUnreadMailsCount(count))
+    }, [])
 
     function onSetFilterBy(newFilterBy) {
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...newFilterBy }))
@@ -62,7 +72,7 @@ export function MailIndex() {
 
         <div className="mail-index-side">
             <button className="compose-btn">Compose</button>
-            <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+            <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadMailsCount={unreadMailsCount} />
         </div>
 
         {isLoading && <div className="loading"></div>}
