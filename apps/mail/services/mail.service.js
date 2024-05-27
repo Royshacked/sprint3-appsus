@@ -15,6 +15,7 @@ export const mailService = {
     save,
     getEmptyMail,
     getFilterFromSearchParams,
+    getEmptyFilter
 }
 
 // window.cs = mailService
@@ -73,7 +74,15 @@ function getFilterFromSearchParams(searchParams) {
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'All',
         // isStarred: searchParams.get('isStarred') || '',
-        lables: searchParams.get('lables') || '',
+        // lables: searchParams.get('lables') || '',
+    }
+}
+
+function getEmptyFilter() {
+    return {
+        status: '',
+        txt: '',
+        isRead: 'All',
     }
 }
 
