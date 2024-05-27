@@ -1,11 +1,13 @@
 const { useState } = React
 
+
 export function NoteForm({ onAdd }) {
     const [text, setText] = useState('')
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff')
 
     const handleSubmit = (ev) => {
         ev.preventDefault()
-        onAdd(text)
+        onAdd({ text, backgroundColor })
         setText('')
     }
 
@@ -13,9 +15,17 @@ export function NoteForm({ onAdd }) {
         <form onSubmit={handleSubmit}>
             <textarea
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={(ev) => setText(ev.target.value)}
                 placeholder="Type your note here..."
             ></textarea>
+            
+            <input
+                className="colorPicker"
+                type="color"
+                value={backgroundColor}
+                onChange={(ev) => setBackgroundColor(ev.target.value)}
+            />
+            
             <button type="submit">Add Note</button>
         </form>
     )

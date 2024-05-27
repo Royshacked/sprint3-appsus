@@ -1,6 +1,6 @@
 // note service
-export const addNote = (notes, text) => {
-    const newNote = { id: Date.now(), text }
+export const addNote = (notes, { text, backgroundColor }) => {
+    const newNote = { id: Date.now(), text, backgroundColor }
     return [...notes, newNote]
 }
   

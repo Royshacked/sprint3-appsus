@@ -1,0 +1,9 @@
+/* hero */
+.hero {
+    background-color: #fd4343;
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 3dvh;
+    margin-bottom: 20px;
+}
