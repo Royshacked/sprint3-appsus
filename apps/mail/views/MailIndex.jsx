@@ -57,7 +57,11 @@ export function MailIndex() {
             <MailTopFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </div>
 
-        <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+        <div className="mail-index-side">
+            <button className="compose-btn">Compose</button>
+            <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+        </div>
+
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
         {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} />}
