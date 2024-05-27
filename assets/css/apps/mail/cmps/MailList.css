@@ -15,26 +15,35 @@
 
  .mail-list li {
      display: grid;
-     grid-template-columns: 0.1fr 2fr;
+     grid-template-columns: 0.05fr 2fr;
      align-items: center;
 
      border-block-end: 1px solid lightgray;
-     padding: 0.5em;
+     padding: 0.1em;
 
      font-size: 1em;
      font-family: Arial, Helvetica, sans-serif;
-     /* font-weight: bold; */
-     /* transition: 0.2s; */
  }
 
- .mail-list .starred-btn {
+ .mail-list li button {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+     padding: 0.8em;
+
      border: 0;
+     border-radius: 50%;
 
      font-size: 1em;
+
      background-color: transparent;
+
+     transition: 0.2s;
  }
 
  .mail-list li:hover {
+     border-inline: 1px solid lightgray;
      border-block-end: 2px solid lightgray;
  }
 
@@ -46,7 +55,16 @@
      display: none;
  }
 
+ .mail-list button:hover {
+     background-color: rgb(248, 244, 244);
+     border-radius: 50%;
+ }
+
  .read {
      background-color: var(--main-bg-color);
      font-weight: normal;
+ }
+
+ .starred {
+     color: rgb(255, 208, 0);
  }

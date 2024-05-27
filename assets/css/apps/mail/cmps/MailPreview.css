@@ -1,6 +1,6 @@
 .mail-preview {
     display: grid;
-    grid-template-columns: 2fr 2fr 0.5fr;
+    grid-template-columns: 2fr 2fr minmax(150px, 0.5fr);
     justify-content: space-between;
     align-items: center;
 
@@ -10,6 +10,8 @@
 }
 
 .mail-preview span {
+    justify-self: start;
+    align-items: start;
     width: max-content;
 }
 

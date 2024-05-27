@@ -43,7 +43,6 @@ export function MailDetails() {
                 showErrorMsg('couldnt remove email')
                 navigate('/mail')
             })
-        // .finally(navigate('/mail'))
     }
 
     if (isLoading) return <div className="loading"></div>

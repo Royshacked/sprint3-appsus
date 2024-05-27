@@ -41,6 +41,16 @@ export function MailIndex() {
             .finally(navigate('/mail'))
     }
 
+    function onToggleStar(ev, mail) {
+        ev.stopPropagation()
+        mail.isStarred = !mail.isStarred
+
+        mailService.save(mail)
+            .then(() => setFilterBy(prevMails => ({ ...prevMails })))
+    }
+
+    console.log(mails)
+
     return <section className="mail-index">
         <div className="mail-index-header full">
             <div className="logo">
@@ -59,7 +69,7 @@ export function MailIndex() {
 
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
-        {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} />}
+        {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} onToggleStar={onToggleStar} />}
     </section>
 }
 
