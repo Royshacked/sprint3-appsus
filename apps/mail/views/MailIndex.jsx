@@ -28,8 +28,13 @@ export function MailIndex() {
     }, [filterBy])
 
     function onSetFilterBy(newFilterBy) {
-        setFilterBy({ ...newFilterBy })
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...newFilterBy }))
     }
+    // function onSetFilterBy(newFilterBy) {
+    //     setFilterBy({ ...newFilterBy })
+    // }
+
+
 
     function onRemove(mailId) {
         mailService.remove(mailId)
