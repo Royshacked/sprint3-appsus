@@ -1,8 +1,9 @@
 import { mailService } from "../services/mail.service.js"
 
 
-export function MailSideFilter({ onFilter, unreadMailsCount }) {
-    const sideFilterBy = mailService.getEmptyFilter()
+export function MailSideFilter({ filterBy, onFilter, unreadMailsCount }) {
+    const { status } = filterBy
+    const sideFilterBy = { status }
 
     function handleChange(value) {
         onFilter({ ...sideFilterBy, status: value })
