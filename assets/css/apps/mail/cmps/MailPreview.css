@@ -1,18 +1,20 @@
 .mail-preview {
     display: grid;
-    grid-template-columns: 2fr 2fr 0.5fr;
+    grid-template-columns: 2fr 2fr minmax(150px, 0.5fr);
     justify-content: space-between;
     align-items: center;
 
     gap: 1em;
 
-    flex-grow: 2;
+    color: rgb(75, 71, 71);
 }
 
 .mail-preview span {
-    text-align: start;
+    justify-self: start;
+    align-items: start;
+    width: max-content;
 }
 
-.mail-preview span:last-of-type {
-    width: max-content;
+.mail-btns {
+    display: none;
 }

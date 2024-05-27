@@ -1,0 +1,23 @@
+.mail-side-filter nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    gap: 1em;
+}
+
+.mail-side-filter nav button {
+    border: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+
+    background-color: transparent;
+
+    transition: 0.2s;
+}
+
+.clicked {
+    font-weight: bold;
+}
