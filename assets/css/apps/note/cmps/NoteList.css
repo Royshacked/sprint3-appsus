@@ -1,1 +1,17 @@
- /* note list */
+/* note list */
+.note {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #eee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    max-width: 30vw;
+}
+
+.note p {
+    margin-bottom: 10px;
+}
+
+.note button {
+    margin-right: 5px;
+    border-radius: 10px;
+}

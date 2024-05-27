@@ -1,1 +1,17 @@
  /* note index */
+.hero .NoteIndex {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.hero .NoteIndex h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.hero .NoteIndex .note-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
