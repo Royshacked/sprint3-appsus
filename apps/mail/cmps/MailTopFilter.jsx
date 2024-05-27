@@ -1,8 +1,10 @@
 const { useState, useEffect } = React
 
 
-export function MailFilter({ filterBy, onFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+export function MailTopFilter({ filterBy, onFilter }) {
+    const { txt, isRead } = filterBy
+    const topFilterBy = { txt, isRead }
+    const [filterByToEdit, setFilterByToEdit] = useState(topFilterBy)
 
     useEffect(() => {
         onFilter(filterByToEdit)
@@ -16,11 +18,11 @@ export function MailFilter({ filterBy, onFilter }) {
     }
 
     return <section className="mail-filter">
-        <input onChange={handleChange} type="txt" name="txt" value={filterByToEdit.txt} />
+        <input onChange={handleChange} type="search" name="txt" value={filterByToEdit.txt} placeholder="Search" />
         <select onChange={handleChange} name="isRead" value={filterByToEdit.isRead}>
-            <option value={null}>All</option>
-            <option value={true}>Read</option>
-            <option value={false}>Unread</option>
+            <option >All</option>
+            <option value={'true'}>Read</option>
+            <option value={'false'}>Unread</option>
         </select>
     </section>
 }
