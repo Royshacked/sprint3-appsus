@@ -1,14 +1,16 @@
 const { useState, useEffect } = React
 
 export function MailSideFilter({ filterBy, onFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const { status } = filterBy
+    const sideFilterBy = { status }
+    const [filterByToEdit, setFilterByToEdit] = useState(sideFilterBy)
 
     useEffect(() => {
         onFilter(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange(value) {
-        setFilterByToEdit(({ status: value }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, status: value }))
     }
 
     return <section className="mail-side-filter">

@@ -2,7 +2,9 @@ const { useState, useEffect } = React
 
 
 export function MailTopFilter({ filterBy, onFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const { txt, isRead } = filterBy
+    const topFilterBy = { txt, isRead }
+    const [filterByToEdit, setFilterByToEdit] = useState(topFilterBy)
 
     useEffect(() => {
         onFilter(filterByToEdit)
@@ -12,7 +14,7 @@ export function MailTopFilter({ filterBy, onFilter }) {
         const { type, name } = target
         const value = (type === 'number') ? +target.value : target.value
 
-        setFilterByToEdit(({ [name]: value }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [name]: value }))
     }
 
     return <section className="mail-filter">
