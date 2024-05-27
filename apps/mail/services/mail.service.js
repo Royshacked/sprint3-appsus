@@ -27,9 +27,10 @@ function query(filterBy = {}) {
                 mails = mails.filter(mail => regExp.test(mail.subject))
             }
             if (filterBy.isRead !== 'All') {
-                if(filterBy.isRead==='true') mails = mails.filter(mail => mail.isRead===true)
-                if(filterBy.isRead==='false') mails = mails.filter(mail => mail.isRead===false)   
+                if (filterBy.isRead === 'true') mails = mails.filter(mail => mail.isRead === true)
+                if (filterBy.isRead === 'false') mails = mails.filter(mail => mail.isRead === false)
             }
+            mails = _filterByMailStatus(mails, filterBy.status)
             return mails
         })
 }
@@ -76,10 +77,6 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
-function setAsRead(mailId) {
-
-}
-
 // Private functions
 
 function _setNextprevMailId(mail) {
@@ -93,7 +90,6 @@ function _setNextprevMailId(mail) {
     })
 }
 
-
 function _createMails() {
     let mails = storageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
@@ -104,6 +100,8 @@ function _createMails() {
                 subject: utilService.makeLorem(3),
                 body: utilService.makeLorem(20),
                 isRead: false,
+                isStarred: false,
+                isDraft: false,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
@@ -112,6 +110,23 @@ function _createMails() {
             mails.push(mail)
         }
         storageService.saveToStorage(MAIL_KEY, mails)
+    }
+}
+
+function _filterByMailStatus(mails, status) {
+    switch (status) {
+        case 'inbox':
+            return mails.filter(mail => mail.to.email === loggedinUser.email)
+        case 'starred':
+            return mails.filter(mail => mail.isStarred)
+        case 'sent':
+            return mails.filter(mail => mail.to.email !== loggedinUser.email)
+        case 'trash':
+            return mails.filter(mail => mail.removedAt)
+        case 'draft':
+            return mails.filter(mail => mail.isDraft)
+        default:
+            return mails.filter(mail => mail.to.email === loggedinUser.email)
     }
 }
 
