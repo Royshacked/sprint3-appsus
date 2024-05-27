@@ -12,7 +12,6 @@ export function MailList({ mails, onRemove, onToggleStar }) {
                         {!mail.isStarred && <span>&#9734;</span>}
                         {mail.isStarred && <span>&#9733;</span>}
                     </button>
-                    {/* <button className="starred-btn" onClick={(ev) => onToggleStar(ev, mail)}>&#9733;</button> */}
                     <Link to={`/mail/${mail.id}`} ><MailPreview mail={mail} onRemove={onRemove} /></Link>
                 </li>
             )}

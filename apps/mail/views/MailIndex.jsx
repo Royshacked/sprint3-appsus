@@ -49,8 +49,6 @@ export function MailIndex() {
             .then(() => setFilterBy(prevMails => ({ ...prevMails })))
     }
 
-    console.log(mails)
-
     return <section className="mail-index">
         <div className="mail-index-header full">
             <div className="logo">

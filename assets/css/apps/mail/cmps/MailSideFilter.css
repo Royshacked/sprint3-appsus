@@ -14,4 +14,10 @@
     font-size: 1.2em;
 
     background-color: transparent;
+
+    transition: 0.2s;
+}
+
+.clicked {
+    font-weight: bold;
 }
