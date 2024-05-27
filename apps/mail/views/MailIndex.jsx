@@ -28,7 +28,7 @@ export function MailIndex() {
     }, [filterBy])
 
     function onSetFilterBy(newFilterBy) {
-        setFilterBy({ ...newFilterBy })
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...newFilterBy }))
     }
 
     function onRemove(mailId) {

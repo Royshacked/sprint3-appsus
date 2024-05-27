@@ -12,7 +12,7 @@ export function MailTopFilter({ filterBy, onFilter }) {
         const { type, name } = target
         const value = (type === 'number') ? +target.value : target.value
 
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [name]: value }))
+        setFilterByToEdit(({ [name]: value }))
     }
 
     return <section className="mail-filter">
