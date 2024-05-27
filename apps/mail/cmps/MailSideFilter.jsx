@@ -1,5 +1,3 @@
-import { mailService } from "../services/mail.service.js"
-
 
 export function MailSideFilter({ filterBy, onFilter, unreadMailsCount }) {
     const { status } = filterBy

@@ -35,7 +35,7 @@ export function MailIndex() {
                 return acc
             }, 0))
             .then(count => setUnreadMailsCount(count))
-    }, [])
+    }, [mails])
 
     function onSetFilterBy(newFilterBy) {
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...newFilterBy }))
