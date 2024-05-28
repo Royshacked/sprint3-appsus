@@ -21,6 +21,7 @@ export function MailCompose({ closeCompose }) {
         ev.preventDefault()
 
         mail.sentAt = Date.now()
+        mail.isDraft = false
         mailService.save(mail)
             .then(() => showSuccessMsg('Email sent successfully'))
             .catch(() => showErrorMsg('Couldn\'nt send email'))
@@ -54,9 +55,9 @@ export function MailCompose({ closeCompose }) {
         </header>
         <form onSubmit={handleSubmit}>
             <span>From:   {mail.from}</span>
-            <input onChange={handleChange} type="email" name="to" placeholder="To" value={mail.to} />
-            <input onChange={handleChange} type="text" name="subject" placeholder="Subject" value={mail.subject} />
-            <input onChange={handleChange} type="text" name="body" value={mail.body} />
+            <input onChange={handleChange} type="email" name="to" placeholder="To" value={mail.to} required />
+            <input onChange={handleChange} type="text" name="subject" placeholder="Subject" value={mail.subject} required />
+            <input onChange={handleChange} type="text" name="body" value={mail.body} required />
             <button>Send</button>
         </form>
     </section>
