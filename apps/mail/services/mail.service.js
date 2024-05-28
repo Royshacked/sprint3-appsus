@@ -62,8 +62,8 @@ function getEmptyMail() {
         body: '',
         isRead: false,
         isStarred: false,
-        isDraft: false,
-        sentAt: null,
+        isDraft: true,
+        sentAt: Date.now(),
         removedAt: null,
         from: loggedinUser,
         to: {
@@ -138,7 +138,7 @@ function _filterByMailStatus(mails, status) {
         case 'starred':
             return mails.filter(mail => mail.isStarred)
         case 'sent':
-            return mails.filter(mail => mail.from.email === loggedinUser.email)
+            return mails.filter(mail => mail.from.email === loggedinUser.email && !mail.isDraft)
         case 'trash':
             return mails.filter(mail => mail.removedAt)
         case 'draft':

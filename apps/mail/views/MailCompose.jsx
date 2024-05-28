@@ -42,10 +42,19 @@ export function MailCompose({ closeCompose }) {
             .finally(closeCompose(false))
     }
 
+    // function saveDraft() {
+    //     mailService.save(mail)
+    //         .then(mail => {
+    //             showSuccessMsg('Draft saved')
+    //             setMail(mail)
+    //         })
+    //         .catch(() => showErrorMsg('Couldn\'nt save draft'))
+    // }
+
     return <section className="mail-compose">
         <header>
             <h2>New Message</h2>
-            <button onClick={onCloseCompose}>X</button>
+            <button onClick={() => onCloseCompose(false)}>X</button>
         </header>
         <form onSubmit={handleSubmit}>
             <span>From:   {mail.from.email}</span>
