@@ -19,10 +19,24 @@ export function MailDetails() {
 
     function loadMail() {
         setIsLoading(true)
+        onMarkUnread()
+            // mailService.get(mailId)
+            //     .then(mail => {
+            //         mail.isRead = true
+            //         return mailService.save(mail)
+            //     })
+            //     .then(mail => setMail(mail))
+            //     .catch(err => {
+            //         navigate('/mail')
+            //         alert(err)
+            //     })
+            .finally(() => setIsLoading(false))
+    }
 
-        mailService.get(mailId)
+    function onMarkUnread(isRead = true) {
+        return mailService.get(mailId)
             .then(mail => {
-                mail.isRead = true
+                mail.isRead = isRead
                 return mailService.save(mail)
             })
             .then(mail => setMail(mail))
@@ -30,7 +44,6 @@ export function MailDetails() {
                 navigate('/mail')
                 alert(err)
             })
-            .finally(() => setIsLoading(false))
     }
 
     function onRemove(mailId) {
@@ -48,10 +61,13 @@ export function MailDetails() {
     if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
-            <Link to="/mail" title="inbox" ><button>📩</button></Link>
+            <Link to="/mail" title="inbox"><button>📩</button></Link>
+
             <button onClick={() => onRemove(mailId)} title="remove">🗑️</button>
-            <button title="mark unread" >✉️</button>
-            <button title="send as note" >📤</button>
+            {mail.isRead && <button onClick={() => onMarkUnread(false)} title="mark unread">✉️</button>}
+            {!mail.isRead && <button onClick={() => onMarkUnread(true)} title="mark read">📧</button>}
+            <button title="send as note">📤</button>
+
             <Link to={`/mail/${mail.prevMailId}`} title="older"><button>&larr;</button></Link>
             <Link to={`/mail/${mail.nextMailId}`} title="newer"><button>&rarr;</button></Link>
         </header>
