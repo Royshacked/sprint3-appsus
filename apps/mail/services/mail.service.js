@@ -65,11 +65,8 @@ function getEmptyMail() {
         isDraft: true,
         sentAt: Date.now(),
         removedAt: null,
-        from: loggedinUser,
-        to: {
-            email: '',
-            fullname: utilService.makeLorem(1),
-        },
+        from: loggedinUser.email,
+        to: '',
     }
 }
 
@@ -119,11 +116,8 @@ function _createMails() {
                 isDraft: false,
                 sentAt: Date.now(),
                 removedAt: null,
-                from: {
-                    email: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
-                    fullname: utilService.makeLorem(1),
-                },
-                to: loggedinUser,
+                from: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
+                to: loggedinUser.email,
             }
             mails.push(mail)
         }
@@ -134,17 +128,17 @@ function _createMails() {
 function _filterByMailStatus(mails, status) {
     switch (status) {
         case 'inbox':
-            return mails.filter(mail => mail.to.email === loggedinUser.email)
+            return mails.filter(mail => mail.to === loggedinUser.email)
         case 'starred':
             return mails.filter(mail => mail.isStarred)
         case 'sent':
-            return mails.filter(mail => mail.from.email === loggedinUser.email && !mail.isDraft)
+            return mails.filter(mail => mail.from === loggedinUser.email && !mail.isDraft)
         case 'trash':
             return mails.filter(mail => mail.removedAt)
         case 'draft':
             return mails.filter(mail => mail.isDraft)
         default:
-            return mails.filter(mail => mail.to.email === loggedinUser.email)
+            return mails.filter(mail => mail.to === loggedinUser.email)
     }
 }
 

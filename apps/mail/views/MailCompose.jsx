@@ -2,9 +2,6 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 import { mailService } from "../services/mail.service.js"
 
 const { useState, useEffect } = React
-const { Link, useSearchParams, Outlet } = ReactRouterDOM
-const { useNavigate } = ReactRouter
-
 
 export function MailCompose({ closeCompose }) {
     const [mail, setMail] = useState(mailService.getEmptyMail())
@@ -17,8 +14,7 @@ export function MailCompose({ closeCompose }) {
         const { name } = target
         const value = target.value
 
-        if (name === 'email') setMail(prevMail => ({ ...prevMail, to: { ...prevMail.to, email: value } }))
-        else setMail(prevMail => ({ ...prevMail, [name]: value }))
+        setMail(prevMail => ({ ...prevMail, [name]: value }))
     }
 
     function handleSubmit(ev) {
@@ -32,7 +28,7 @@ export function MailCompose({ closeCompose }) {
     }
 
     function onCloseCompose() {
-        if (!mail.to.email) return closeCompose(false)
+        if (!mail.to) return closeCompose(false)
 
         mail.sentAt = Date.now()
         mail.isDraft = true
@@ -57,8 +53,8 @@ export function MailCompose({ closeCompose }) {
             <button onClick={() => onCloseCompose(false)}>X</button>
         </header>
         <form onSubmit={handleSubmit}>
-            <span>From:   {mail.from.email}</span>
-            <input onChange={handleChange} type="email" name="email" placeholder="To" value={mail.to.email} />
+            <span>From:   {mail.from}</span>
+            <input onChange={handleChange} type="email" name="to" placeholder="To" value={mail.to} />
             <input onChange={handleChange} type="text" name="subject" placeholder="Subject" value={mail.subject} />
             <input onChange={handleChange} type="text" name="body" value={mail.body} />
             <button>Send</button>
