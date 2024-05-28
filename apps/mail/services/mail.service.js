@@ -61,10 +61,15 @@ function getEmptyMail() {
         subject: '',
         body: '',
         isRead: false,
+        isStarred: false,
+        isDraft: false,
         sentAt: null,
         removedAt: null,
-        from: '',
-        to: '',
+        from: loggedinUser,
+        to: {
+            email: '',
+            fullname: utilService.makeLorem(1),
+        },
     }
 }
 
@@ -104,7 +109,7 @@ function _createMails() {
     let mails = storageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 30; i++) {
             const mail = {
                 id: utilService.makeId(),
                 subject: utilService.makeLorem(3),
@@ -114,7 +119,10 @@ function _createMails() {
                 isDraft: false,
                 sentAt: Date.now(),
                 removedAt: null,
-                from: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
+                from: {
+                    email: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
+                    fullname: utilService.makeLorem(1),
+                },
                 to: loggedinUser,
             }
             mails.push(mail)
@@ -130,7 +138,7 @@ function _filterByMailStatus(mails, status) {
         case 'starred':
             return mails.filter(mail => mail.isStarred)
         case 'sent':
-            return mails.filter(mail => mail.to.email !== loggedinUser.email)
+            return mails.filter(mail => mail.from.email === loggedinUser.email)
         case 'trash':
             return mails.filter(mail => mail.removedAt)
         case 'draft':

@@ -58,7 +58,7 @@ export function MailDetails() {
             <Link to={`/mail/${mail.nextMailId}`}><button>newer</button></Link>
         </header>
         <h2>{mail.subject}</h2>
-        <p>{mail.from}</p>
+        <p>{mail.from.email}</p>
         <p>
             <span>{mail.to.fullname}</span>
             <span>{mail.to.email}</span>
