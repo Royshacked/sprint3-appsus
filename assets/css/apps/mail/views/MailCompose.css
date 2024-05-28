@@ -1,11 +1,12 @@
 .mail-compose {
+    opacity: 1;
     position: absolute;
-    top: 25%;
-    left: 25%;
+    top: 40%;
+    left: 55%;
 
     z-index: 10;
 
-    width: 50%;
+    width: 40%;
     height: 50%;
 
     border: 1px solid lightgray;
