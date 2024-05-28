@@ -110,7 +110,7 @@ function _createMails() {
             const mail = {
                 id: utilService.makeId(),
                 subject: utilService.makeLorem(3),
-                body: utilService.makeLorem(20),
+                body: utilService.makeLorem(100),
                 isRead: false,
                 isStarred: false,
                 isDraft: false,

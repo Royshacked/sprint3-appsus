@@ -48,29 +48,29 @@ export function MailDetails() {
     if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
-            <Link to="/mail" ><button>back</button></Link>
-            <button onClick={() => onRemove(mailId)}>remove</button>
-            <button>mark as unread</button>
-            <button>save as note</button>
-            <button>category</button>
-            <button>category</button>
-            <Link to={`/mail/${mail.prevMailId}`}><button>older</button></Link>
-            <Link to={`/mail/${mail.nextMailId}`}><button>newer</button></Link>
+            <Link to="/mail" title="inbox" ><button>📩</button></Link>
+            <button onClick={() => onRemove(mailId)} title="remove">🗑️</button>
+            <button title="mark unread" >✉️</button>
+            <button title="send as note" >📤</button>
+            <Link to={`/mail/${mail.prevMailId}`} title="older"><button>&larr;</button></Link>
+            <Link to={`/mail/${mail.nextMailId}`} title="newer"><button>&rarr;</button></Link>
         </header>
-        <h2>{mail.subject}</h2>
-        <p>{mail.from.email}</p>
-        <p>
-            <span>{mail.to.fullname}</span>
-            <span>{mail.to.email}</span>
-        </p>
+        <main>
+            <h2>{mail.subject}</h2>
+            <p>From:
+                <span>{mail.from}</span>
+            </p>
+            <p>To:
+                <span>{mail.to}</span>
+            </p>
 
-        <p>{new Date(mail.sentAt).toDateString()}</p>
+            <p>{new Date(mail.sentAt).toDateString()}</p>
 
-        <p>{mail.body}</p>
-
-        <footer>
+            <p>{mail.body}</p>
+        </main>
+        {/* <footer>
             <button>facebook</button>
-        </footer>
+        </footer> */}
 
     </section>
 }
