@@ -71,7 +71,7 @@ export function MailIndex() {
         </div>
 
         <div className="mail-index-side">
-            <Link to="/mail/compose"><button className="compose-btn">Compose</button></Link>
+            <button className="compose-btn">Compose</button>
             <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadMailsCount={unreadMailsCount} />
         </div>
 
@@ -79,7 +79,6 @@ export function MailIndex() {
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
         {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} onToggleStar={onToggleStar} />}
 
-        <Outlet />
     </section>
 }
 
