@@ -75,7 +75,7 @@ function getFilterFromSearchParams(searchParams) {
         status: searchParams.get('status') || 'inbox',
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'All',
-        compose: searchParams.get('compose') || '',
+        // compose: searchParams.get('compose') || '',
         // isStarred: searchParams.get('isStarred') || '',
         // lables: searchParams.get('lables') || '',
     }

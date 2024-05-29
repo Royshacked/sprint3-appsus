@@ -60,11 +60,6 @@ export function MailIndex() {
             .then(() => setFilterBy(prevMails => ({ ...prevMails })))
     }
 
-    function onToggleCompose(isOpenCompose) {
-        if (isOpenCompose) setFilterBy(prevFilterBy => ({ ...prevFilterBy, compose: 'new' }))
-        if (!isOpenCompose) setFilterBy(prevFilterBy => ({ ...prevFilterBy, compose: '' }))
-    }
-
     return <section className="mail-index">
         <div className="mail-index-header full">
             <div className="logo">
@@ -77,14 +72,15 @@ export function MailIndex() {
         </div>
 
         <div className="mail-index-side">
-            <button className="compose-btn" onClick={() => onToggleCompose(true)}>Compose</button>
+            <Link to="/mail/compose"><button className="compose-btn">Compose</button></Link>
             <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadMailsCount={unreadMailsCount} />
         </div>
 
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
         {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} onToggleStar={onToggleStar} />}
-        {filterBy.compose === 'new' && <MailCompose closeCompose={onToggleCompose} />}
+
+        <Outlet context={[filterBy]} />
     </section>
 }
 
