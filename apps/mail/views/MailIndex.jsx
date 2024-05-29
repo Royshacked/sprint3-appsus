@@ -1,9 +1,8 @@
 import { MailTopFilter } from "../cmps/MailTopFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { mailService } from "../services/mail.service.js"
-import { eventBusService, showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { MailSideFilter } from "../cmps/MailSideFilter.jsx"
-import { MailCompose } from "./MailCompose.jsx"
 
 
 const { useState, useEffect } = React
@@ -42,14 +41,29 @@ export function MailIndex() {
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...newFilterBy }))
     }
 
-    function onRemove(mailId) {
-        mailService.remove(mailId)
+    function onRemove(mailToRemove) {
+        if (mailToRemove.removedAt) remove(mailToRemove)
+        else if (!mailToRemove.removedAt) moveToTrash(mailToRemove)
+    }
+
+    function remove(mailToRemove) {
+        mailService.remove(mailToRemove.id)
             .then(() => {
-                setMails(prevMails => prevMails.filter(mail => mail.id !== mailId))
-                showSuccessMsg('email removed successfully')
+                setMails(prevMails => prevMails.filter(mail => mail.id !== mailToRemove.id))
+                showSuccessMsg('Email removed successfully')
             })
-            .catch(() => showErrorMsg('couldnt remove email'))
-            .finally(navigate('/mail'))
+            .catch(() => showErrorMsg('Couldnt remove email'))
+            .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
+    }
+
+    function moveToTrash(mailToRemove) {
+        mailService.moveToTrash(mailToRemove)
+            .then(() => {
+                setMails(prevMails => prevMails.filter(mail => !mail.removedAt))
+                showSuccessMsg('Email moved to trash')
+            })
+            .catch(() => showErrorMsg('couldnt move email to trash'))
+            .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
     }
 
     function onToggleStar(ev, mail) {

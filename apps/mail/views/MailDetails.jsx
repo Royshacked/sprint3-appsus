@@ -20,16 +20,6 @@ export function MailDetails() {
     function loadMail() {
         setIsLoading(true)
         onMarkUnread()
-            // mailService.get(mailId)
-            //     .then(mail => {
-            //         mail.isRead = true
-            //         return mailService.save(mail)
-            //     })
-            //     .then(mail => setMail(mail))
-            //     .catch(err => {
-            //         navigate('/mail')
-            //         alert(err)
-            //     })
             .finally(() => setIsLoading(false))
     }
 
@@ -46,16 +36,23 @@ export function MailDetails() {
             })
     }
 
-    function onRemove(mailId) {
-        mailService.remove(mailId)
-            .then(() => {
-                showSuccessMsg('email removed successfully')
-                navigate('/mail')
-            })
-            .catch(() => {
-                showErrorMsg('couldnt remove email')
-                navigate('/mail')
-            })
+    function onRemove(mailToRemove) {
+        if (mailToRemove.removedAt) remove(mailToRemove)
+        else if (!mailToRemove.removedAt) moveToTrash(mailToRemove)
+    }
+
+    function remove(mailToRemove) {
+        mailService.remove(mailToRemove.id)
+            .then(() => showSuccessMsg('Email removed successfully'))
+            .catch(() => showErrorMsg('Couldnt remove email'))
+            .finally(() => navigate('/mail'))
+    }
+
+    function moveToTrash(mailToRemove) {
+        mailService.moveToTrash(mailToRemove)
+            .then(() => showSuccessMsg('Email moved to trash'))
+            .catch(() => showErrorMsg('couldnt move email to trash'))
+            .finally(() => navigate('/mail'))
     }
 
     if (isLoading) return <div className="loading"></div>
@@ -63,7 +60,7 @@ export function MailDetails() {
         <header>
             <Link to="/mail" title="inbox"><button>📩</button></Link>
 
-            <button onClick={() => onRemove(mailId)} title="remove">🗑️</button>
+            <button onClick={() => onRemove(mail)} title="remove">🗑️</button>
             {mail.isRead && <button onClick={() => onMarkUnread(false)} title="mark unread">✉️</button>}
             {!mail.isRead && <button onClick={() => onMarkUnread(true)} title="mark read">📧</button>}
             <button title="send as note">📤</button>

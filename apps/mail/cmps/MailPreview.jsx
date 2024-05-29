@@ -10,7 +10,7 @@ export function MailPreview({ mail, onRemove }) {
             <button onClick={ev => {
                 ev.preventDefault()
                 ev.stopPropagation()
-                onRemove(mail.id)
+                onRemove(mail)
             }}>🗑️</button>
         </span>
     </article>

@@ -15,7 +15,8 @@ export const mailService = {
     save,
     getEmptyMail,
     getFilterFromSearchParams,
-    getEmptyFilter
+    getEmptyFilter,
+    moveToTrash
 }
 
 // window.cs = mailService
@@ -89,6 +90,13 @@ function getEmptyFilter() {
     }
 }
 
+function moveToTrash(mail) {
+    mail.removedAt = Date.now()
+    mail.isStarred = false
+    return save(mail)
+    // .then(() => query())
+}
+
 // Private functions
 
 function _setNextprevMailId(mail) {
@@ -128,7 +136,7 @@ function _createMails() {
 function _filterByMailStatus(mails, status) {
     switch (status) {
         case 'inbox':
-            return mails.filter(mail => mail.to === loggedinUser.email)
+            return mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.isDraft)
         case 'starred':
             return mails.filter(mail => mail.isStarred)
         case 'sent':
@@ -138,7 +146,7 @@ function _filterByMailStatus(mails, status) {
         case 'draft':
             return mails.filter(mail => mail.isDraft)
         default:
-            return mails.filter(mail => mail.to === loggedinUser.email)
+            return mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.isDraft)
     }
 }
 
