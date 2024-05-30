@@ -89,6 +89,7 @@ export function MailIndex() {
 
         <div className="mail-index-side">
             <Link to="/mail/compose"><button className="compose-btn">Compose</button></Link>
+            {/* <button onClick={() => navigate('/mail/compose' + '?' + 'subject=helllo&status=draft')} className="compose-btn">Compose</button> */}
             <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadMailsCount={unreadMailsCount} />
         </div>
 
@@ -99,4 +100,6 @@ export function MailIndex() {
         <Outlet context={[filterBy, onSetFilterBy]} />
     </section>
 }
+
+
 

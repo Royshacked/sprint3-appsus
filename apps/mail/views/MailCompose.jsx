@@ -7,68 +7,62 @@ const { useNavigate, useParams } = ReactRouter
 
 
 export function MailCompose() {
-    const [mail, setMail] = useState(mailService.getEmptyMail())
     const [searchParams, setSearchParams] = useSearchParams()
+    const [mailToEdit, setMailToEdit] = useState(mailService.getComposeFromSearchParams(searchParams))
     const [filterBy, setFilterBy] = useOutletContext()
-
-    console.log(setFilterBy)
 
     const navigate = useNavigate()
     const { mailId } = useParams()
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        setSearchParams({ ...filterBy, ...mailToEdit })
         if (!mailId) return
         mailService.get(mailId)
-            .then(mail => setMail(mail))
-    }, [])
+            .then(mail => setMailToEdit(mail))
+    }, [mailToEdit])
 
     function handleChange({ target }) {
         const { name } = target
         const value = target.value
-        setMail(prevMail => ({ ...prevMail, [name]: value }))
+        setMailToEdit(prevMailToEdit => ({ ...prevMailToEdit, [name]: value }))
     }
 
     function handleSubmit(ev) {
         ev.preventDefault()
 
-        mail.sentAt = Date.now()
-        mail.isDraft = false
-        mailService.save(mail)
+        mailService.send(mailToEdit)
             .then((mail) => {
                 showSuccessMsg('Email sent successfully')
-                setMail(mail)
-                setFilterBy(filterBy)
+                setMailToEdit(mail)
+                setFilterBy({ ...filterBy, ...mailToEdit })
             })
             .catch(() => showErrorMsg('Couldn\'nt send email'))
             .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
     }
 
     function onSaveDraft() {
-        if (!mail.body && !mail.to && !mail.subject) return navigate({ pathname: '/mail', search: searchParams.toString(), })
+        if (!mailToEdit.body && !mailToEdit.to && !mailToEdit.subject) return navigate({ pathname: '/mail', search: searchParams.toString(), })
 
-        mail.isDraft = true
-        mailService.save(mail)
+        mailService.saveDraft(mailToEdit)
             .then((mail) => {
                 showSuccessMsg('Draft saved successfully')
-                setMail(mail)
-                setFilterBy(filterBy)
+                setMailToEdit(mail)
+                setFilterBy({ ...filterBy, ...mailToEdit })
             })
             .catch(() => showErrorMsg('Couldn\'nt save draft'))
             .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
     }
 
-
     return <section className="mail-compose">
         <header>
             <h2>New Message</h2>
-            <button onClick={() => onSaveDraft()}>X</button>
+            <button onClick={onSaveDraft}>X</button>
         </header>
         <form onSubmit={handleSubmit}>
-            <span>From:   {mail.from}</span>
-            <input onChange={handleChange} type="email" name="to" placeholder="To" value={mail.to} required />
-            <input onChange={handleChange} type="text" name="subject" placeholder="Subject" value={mail.subject} required />
-            <input onChange={handleChange} type="text" name="body" value={mail.body} required />
+            <span>From:   {mailToEdit.from}</span>
+            <input onChange={handleChange} type="email" name="to" placeholder="To" value={mailToEdit.to} required />
+            <input onChange={handleChange} type="text" name="subject" placeholder="Subject" value={mailToEdit.subject} required />
+            <input onChange={handleChange} type="text" name="body" value={mailToEdit.body} required />
             <button>Send</button>
         </form>
     </section>

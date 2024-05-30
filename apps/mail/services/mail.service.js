@@ -13,10 +13,13 @@ export const mailService = {
     get,
     remove,
     save,
+    send,
+    saveDraft,
     getEmptyMail,
     getFilterFromSearchParams,
+    getComposeFromSearchParams,
     getEmptyFilter,
-    moveToTrash
+    moveToTrash,
 }
 
 // window.cs = mailService
@@ -57,18 +60,12 @@ function save(mail) {
     }
 }
 
-function getEmptyMail() {
-    return {
-        subject: '',
-        body: '',
-        isRead: false,
-        isStarred: false,
-        isDraft: true,
-        sentAt: Date.now(),
-        removedAt: null,
-        from: loggedinUser.email,
-        to: '',
-    }
+function send(mail) {
+    return save({ ...mail, sentAt: Date.now(), isDraft: false })
+}
+
+function saveDraft(mail) {
+    return save({ ...mail, sentAt: Date.now(), isDraft: true })
 }
 
 function getFilterFromSearchParams(searchParams) {
@@ -76,9 +73,29 @@ function getFilterFromSearchParams(searchParams) {
         status: searchParams.get('status') || 'inbox',
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'All',
-        // compose: searchParams.get('compose') || '',
-        // isStarred: searchParams.get('isStarred') || '',
-        // lables: searchParams.get('lables') || '',
+    }
+}
+
+function getComposeFromSearchParams(searchParams) {
+    return {
+        to: searchParams.get('to') || '',
+        from: searchParams.get('from') || loggedinUser.email,
+        subject: searchParams.get('subject') || '',
+        body: searchParams.get('body') || '',
+    }
+}
+
+function getEmptyMail() {
+    return {
+        subject: '',
+        body: '',
+        isRead: false,
+        isStarred: false,
+        isDraft: true,
+        sentAt: null,
+        removedAt: null,
+        from: loggedinUser.email,
+        to: '',
     }
 }
 
@@ -94,7 +111,6 @@ function moveToTrash(mail) {
     mail.removedAt = Date.now()
     mail.isStarred = false
     return save(mail)
-    // .then(() => query())
 }
 
 // Private functions
