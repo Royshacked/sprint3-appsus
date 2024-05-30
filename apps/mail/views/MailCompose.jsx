@@ -9,11 +9,13 @@ const { useNavigate, useParams } = ReactRouter
 export function MailCompose() {
     const [mail, setMail] = useState(mailService.getEmptyMail())
     const [searchParams, setSearchParams] = useSearchParams()
-    const [filterBy] = useOutletContext()
+    const [filterBy, setFilterBy] = useOutletContext()
+
+    console.log(setFilterBy)
 
     const navigate = useNavigate()
     const { mailId } = useParams()
-    console.log(mailId)
+
     useEffect(() => {
         setSearchParams(filterBy)
         if (!mailId) return
@@ -33,7 +35,11 @@ export function MailCompose() {
         mail.sentAt = Date.now()
         mail.isDraft = false
         mailService.save(mail)
-            .then(() => showSuccessMsg('Email sent successfully'))
+            .then((mail) => {
+                showSuccessMsg('Email sent successfully')
+                setMail(mail)
+                setFilterBy(filterBy)
+            })
             .catch(() => showErrorMsg('Couldn\'nt send email'))
             .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
     }
@@ -46,6 +52,7 @@ export function MailCompose() {
             .then((mail) => {
                 showSuccessMsg('Draft saved successfully')
                 setMail(mail)
+                setFilterBy(filterBy)
             })
             .catch(() => showErrorMsg('Couldn\'nt save draft'))
             .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))

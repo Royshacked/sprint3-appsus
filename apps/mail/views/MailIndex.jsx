@@ -74,6 +74,8 @@ export function MailIndex() {
             .then(() => setFilterBy(prevMails => ({ ...prevMails })))
     }
 
+    const str = 'roy'
+
     return <section className="mail-index">
         <div className="mail-index-header full">
             <div className="logo">
@@ -94,7 +96,7 @@ export function MailIndex() {
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
         {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} onToggleStar={onToggleStar} />}
 
-        <Outlet context={[filterBy]} />
+        <Outlet context={[filterBy, onSetFilterBy]} />
     </section>
 }
 
