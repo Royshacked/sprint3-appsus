@@ -144,7 +144,7 @@ function _filterByMailStatus(mails, status) {
         case 'trash':
             return mails.filter(mail => mail.removedAt)
         case 'draft':
-            return mails.filter(mail => mail.isDraft)
+            return mails.filter(mail => mail.isDraft && !mail.removedAt)
         default:
             return mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.isDraft)
     }
