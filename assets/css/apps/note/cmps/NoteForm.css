@@ -10,11 +10,32 @@
 .note-form textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    margin: 2dvh;
+    border: 1px solid #08df08;
     border-radius: 5px;
 }
 
-.note-form input[type="color"] {
-    margin-right: 10px;
+.color-picker {
+    margin: 1dvh;
+    padding: 0.5dvh;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.file-label {
+    cursor: pointer;
+    background-color: rgb(48, 214, 243);
+    border-radius: 8px;
+    padding: 1dvh;
+    margin: 1dvh;
+}
+
+.add-btn {
+    cursor: pointer;
+    background-color: #08df08;
+    border-radius: 8px;
+    padding: 1dvh;
+    margin: 1dvh;
 }

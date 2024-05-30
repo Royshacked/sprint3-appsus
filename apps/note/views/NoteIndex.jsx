@@ -12,6 +12,13 @@ export function NoteIndex() {
     const [selectedNoteId, setSelectedNoteId] = useState(null)
 
     const handleAddNote = (newNote) => {
+        const { text, backgroundColor, files } = newNote
+    
+        // Check if both content and files are empty
+        if (!text.trim() && files.length === 0) {
+            return
+        }
+    
         const updatedNotes = addNote(newNote)
         setNotes(updatedNotes)
     }
@@ -21,8 +28,8 @@ export function NoteIndex() {
         setNotes(updatedNotes)
     }
 
-    const handleUpdateNote = (id, newText, newBackgroundColor) => {
-        const updatedNotes = updateNote(id, newText, newBackgroundColor)
+    const handleUpdateNote = (id, newText, newBackgroundColor, newFiles) => {
+        const updatedNotes = updateNote(id, newText, newBackgroundColor, newFiles) // Pass newFiles to updateNote
         setNotes(updatedNotes)
     }
 
@@ -56,9 +63,9 @@ export function NoteIndex() {
                             onChange={handleSearch}
                         />
                     </div>
-                        <div className="search-buttons">
-                        </div>
+                    <div className="search-buttons">
                     </div>
+                </div>
                 <div className="NoteIndex">
                     <h1>MissKeepApp</h1>
                     {selectedNoteId === null && <NoteForm onAdd={handleAddNote} />}

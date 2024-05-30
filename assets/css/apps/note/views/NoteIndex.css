@@ -3,8 +3,8 @@
 .NoteIndex {
 
     border: 10px;
-    background-color: #e6e6e6d2;
     border-radius: 40px;
+    place-items: center;
 }
 
 .hero {

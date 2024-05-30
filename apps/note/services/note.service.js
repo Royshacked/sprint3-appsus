@@ -2,7 +2,15 @@
 // Load notes from local storage
 const loadNotes = () => {
     const notesJSON = localStorage.getItem('notesDB')
-    return notesJSON ? JSON.parse(notesJSON) : []
+    const notes = notesJSON ? JSON.parse(notesJSON) : []
+    // Ensure each note's files array contains valid file information
+    return notes.map(note => ({
+        ...note,
+        files: note.files.map(file => ({
+            ...file,
+            url: file.url || URL.createObjectURL(new Blob())
+        }))
+    }))
 }
 
 // Save notes to local storage
@@ -12,7 +20,13 @@ const saveNotes = (notes) => {
 
 // Add a new note
 export const addNote = (note) => {
-    const newNote = { id: Date.now(), ...note }
+    const { text, backgroundColor, files } = note
+    const filesInfo = files.map(file => ({
+        name: file.name,
+        type: file.type,
+        url: file.url || URL.createObjectURL(file)
+    }))
+    const newNote = { id: Date.now(), text, backgroundColor, files: filesInfo }
     const notes = loadNotes()
     const updatedNotes = [...notes, newNote]
     saveNotes(updatedNotes)
@@ -32,7 +46,12 @@ export const updateNote = (id, newText, newBackgroundColor, newFiles) => {
     const notes = loadNotes()
     const updatedNotes = notes.map((note) => {
         if (note.id === id) {
-            return { ...note, text: newText, backgroundColor: newBackgroundColor, files: newFiles }
+            const filesInfo = newFiles.map(file => ({
+                name: file.name,
+                type: file.type,
+                url: file.url || URL.createObjectURL(file)
+            }))
+            return { ...note, text: newText, backgroundColor: newBackgroundColor, files: filesInfo }
         } else {
             return note
         }

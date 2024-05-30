@@ -2,7 +2,7 @@
 .note {
     background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
@@ -12,9 +12,9 @@
 }
 
 .note button {
-    margin-right: 5px;
+    margin: 2dvh;
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 1dvh;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -24,4 +24,9 @@
 
 .note button:hover {
     background-color: #0056b3;
+}
+
+.note video {
+    max-width: 100%;
+    max-height: 100%;
 }
