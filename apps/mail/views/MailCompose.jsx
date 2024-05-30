@@ -3,7 +3,7 @@ import { mailService } from "../services/mail.service.js"
 
 const { useState, useEffect } = React
 const { Link, useSearchParams, useOutletContext } = ReactRouterDOM
-const { useNavigate } = ReactRouter
+const { useNavigate, useParams } = ReactRouter
 
 
 export function MailCompose() {
@@ -12,10 +12,13 @@ export function MailCompose() {
     const [filterBy] = useOutletContext()
 
     const navigate = useNavigate()
-
+    const { mailId } = useParams()
+    console.log(mailId)
     useEffect(() => {
-        setMail(mailService.getEmptyMail())
         setSearchParams(filterBy)
+        if (!mailId) return
+        mailService.get(mailId)
+            .then(mail => setMail(mail))
     }, [])
 
     function handleChange({ target }) {
@@ -40,7 +43,10 @@ export function MailCompose() {
 
         mail.isDraft = true
         mailService.save(mail)
-            .then(() => showSuccessMsg('Draft saved successfully'))
+            .then((mail) => {
+                showSuccessMsg('Draft saved successfully')
+                setMail(mail)
+            })
             .catch(() => showErrorMsg('Couldn\'nt save draft'))
             .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
     }
