@@ -5,6 +5,7 @@ import { addNote, deleteNote, updateNote, getAllNotes } from '../services/note.s
 
 const { useState } = React
 const notepadImage = '../../../assets/img/notepad.jpg'
+const notesLogo = '../../../assets/img/noteslogo.png'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(getAllNotes())
@@ -67,7 +68,7 @@ export function NoteIndex() {
                     </div>
                 </div>
                 <div className="NoteIndex">
-                    <h1>MissKeepApp</h1>
+                    <img className="notes-logo" src={notesLogo}></img>
                     {selectedNoteId === null && <NoteForm onAdd={handleAddNote} />}
                 </div>
                 <NoteList
