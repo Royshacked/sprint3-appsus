@@ -58,7 +58,8 @@ export function MailDetails() {
     if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
-            <Link to="/mail" title="inbox"><button>📩</button></Link>
+            {mail.isDraft && <button onClick={() => navigate({ pathname: '/mail', search: '?status=draft', })} title="draft">📩</button>}
+            {!mail.isDraft && <Link to="/mail" title="inbox"><button>📩</button></Link>}
 
             <button onClick={() => onRemove(mail)} title="remove">🗑️</button>
             {mail.isRead && <button onClick={() => onMarkUnread(false)} title="mark unread">✉️</button>}

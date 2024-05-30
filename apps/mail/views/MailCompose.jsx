@@ -35,10 +35,21 @@ export function MailCompose() {
             .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
     }
 
+    function onSaveDraft() {
+        if (!mail.body && !mail.to && !mail.subject) return navigate({ pathname: '/mail', search: searchParams.toString(), })
+
+        mail.isDraft = true
+        mailService.save(mail)
+            .then(() => showSuccessMsg('Draft saved successfully'))
+            .catch(() => showErrorMsg('Couldn\'nt save draft'))
+            .finally(() => navigate({ pathname: '/mail', search: searchParams.toString(), }))
+    }
+
+
     return <section className="mail-compose">
         <header>
             <h2>New Message</h2>
-            <button onClick={() => navigate({ pathname: '/mail', search: searchParams.toString(), })}>X</button>
+            <button onClick={() => onSaveDraft()}>X</button>
         </header>
         <form onSubmit={handleSubmit}>
             <span>From:   {mail.from}</span>
