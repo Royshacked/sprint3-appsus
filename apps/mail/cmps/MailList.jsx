@@ -12,7 +12,7 @@ export function MailList({ mails, onRemove, onToggleStar }) {
                         {!mail.isStarred && <span>&#9734;</span>}
                         {mail.isStarred && <span>&#9733;</span>}
                     </button>
-                    <Link to={`/mail/${mail.id}`} ><MailPreview mail={mail} onRemove={onRemove} /></Link>
+                    {<Link to={mail.isDraft ? `/mail/compose/${mail.id}` : `/mail/${mail.id}`} ><MailPreview mail={mail} onRemove={onRemove} /></Link>}
                 </li>
             )}
         </ul>

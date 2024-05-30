@@ -13,8 +13,13 @@ export const mailService = {
     get,
     remove,
     save,
+    send,
+    saveDraft,
     getEmptyMail,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getComposeFromSearchParams,
+    getEmptyFilter,
+    moveToTrash,
 }
 
 // window.cs = mailService
@@ -55,26 +60,57 @@ function save(mail) {
     }
 }
 
+function send(mail) {
+    return save({ ...mail, sentAt: Date.now(), isDraft: false })
+}
+
+function saveDraft(mail) {
+    return save({ ...mail, sentAt: Date.now(), isDraft: true })
+}
+
+function getFilterFromSearchParams(searchParams) {
+    return {
+        status: searchParams.get('status') || 'inbox',
+        txt: searchParams.get('txt') || '',
+        isRead: searchParams.get('isRead') || 'All',
+    }
+}
+
+function getComposeFromSearchParams(searchParams) {
+    return {
+        to: searchParams.get('to') || '',
+        from: searchParams.get('from') || loggedinUser.email,
+        subject: searchParams.get('subject') || '',
+        body: searchParams.get('body') || '',
+    }
+}
+
 function getEmptyMail() {
     return {
         subject: '',
         body: '',
         isRead: false,
+        isStarred: false,
+        isDraft: true,
         sentAt: null,
         removedAt: null,
-        from: '',
+        from: loggedinUser.email,
         to: '',
     }
 }
 
-function getFilterFromSearchParams(searchParams) {
+function getEmptyFilter() {
     return {
-        status: searchParams.get('status') || '',
-        txt: searchParams.get('txt') || '',
-        isRead: searchParams.get('isRead') || 'All',
-        // isStarred: searchParams.get('isStarred') || '',
-        lables: searchParams.get('lables') || '',
+        status: '',
+        txt: '',
+        isRead: 'All',
     }
+}
+
+function moveToTrash(mail) {
+    mail.removedAt = Date.now()
+    mail.isStarred = false
+    return save(mail)
 }
 
 // Private functions
@@ -94,18 +130,18 @@ function _createMails() {
     let mails = storageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = []
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 30; i++) {
             const mail = {
                 id: utilService.makeId(),
                 subject: utilService.makeLorem(3),
-                body: utilService.makeLorem(20),
+                body: utilService.makeLorem(100),
                 isRead: false,
                 isStarred: false,
                 isDraft: false,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
-                to: loggedinUser,
+                to: loggedinUser.email,
             }
             mails.push(mail)
         }
@@ -116,19 +152,20 @@ function _createMails() {
 function _filterByMailStatus(mails, status) {
     switch (status) {
         case 'inbox':
-            return mails.filter(mail => mail.to.email === loggedinUser.email)
+            return mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.isDraft)
         case 'starred':
             return mails.filter(mail => mail.isStarred)
         case 'sent':
-            return mails.filter(mail => mail.to.email !== loggedinUser.email)
+            return mails.filter(mail => mail.from === loggedinUser.email && !mail.isDraft)
         case 'trash':
             return mails.filter(mail => mail.removedAt)
         case 'draft':
-            return mails.filter(mail => mail.isDraft)
+            return mails.filter(mail => mail.isDraft && !mail.removedAt)
         default:
-            return mails.filter(mail => mail.to.email === loggedinUser.email)
+            return mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.isDraft)
     }
 }
+
 
 // function getSpeedStats() {
 //     return asyncStorageService.query(MAIL_KEY)

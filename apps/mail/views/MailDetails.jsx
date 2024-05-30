@@ -19,10 +19,14 @@ export function MailDetails() {
 
     function loadMail() {
         setIsLoading(true)
+        onMarkUnread()
+            .finally(() => setIsLoading(false))
+    }
 
-        mailService.get(mailId)
+    function onMarkUnread(isRead = true) {
+        return mailService.get(mailId)
             .then(mail => {
-                mail.isRead = true
+                mail.isRead = isRead
                 return mailService.save(mail)
             })
             .then(mail => setMail(mail))
@@ -30,47 +34,57 @@ export function MailDetails() {
                 navigate('/mail')
                 alert(err)
             })
-            .finally(() => setIsLoading(false))
     }
 
-    function onRemove(mailId) {
-        mailService.remove(mailId)
-            .then(() => {
-                showSuccessMsg('email removed successfully')
-                navigate('/mail')
-            })
-            .catch(() => {
-                showErrorMsg('couldnt remove email')
-                navigate('/mail')
-            })
+    function onRemove(mailToRemove) {
+        if (mailToRemove.removedAt) remove(mailToRemove)
+        else if (!mailToRemove.removedAt) moveToTrash(mailToRemove)
+    }
+
+    function remove(mailToRemove) {
+        mailService.remove(mailToRemove.id)
+            .then(() => showSuccessMsg('Email removed successfully'))
+            .catch(() => showErrorMsg('Couldnt remove email'))
+            .finally(() => navigate('/mail'))
+    }
+
+    function moveToTrash(mailToRemove) {
+        mailService.moveToTrash(mailToRemove)
+            .then(() => showSuccessMsg('Email moved to trash'))
+            .catch(() => showErrorMsg('couldnt move email to trash'))
+            .finally(() => navigate('/mail'))
     }
 
     if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
-            <Link to="/mail" ><button>back</button></Link>
-            <button onClick={() => onRemove(mailId)}>remove</button>
-            <button>mark as unread</button>
-            <button>save as note</button>
-            <button>category</button>
-            <button>category</button>
-            <Link to={`/mail/${mail.prevMailId}`}><button>older</button></Link>
-            <Link to={`/mail/${mail.nextMailId}`}><button>newer</button></Link>
+            {mail.isDraft && <button onClick={() => navigate({ pathname: '/mail', search: '?status=draft', })} title="draft">📩</button>}
+            {!mail.isDraft && <Link to="/mail" title="inbox"><button>📩</button></Link>}
+
+            <button onClick={() => onRemove(mail)} title="remove">🗑️</button>
+            {mail.isRead && <button onClick={() => onMarkUnread(false)} title="mark unread">✉️</button>}
+            {!mail.isRead && <button onClick={() => onMarkUnread(true)} title="mark read">📧</button>}
+            <button title="send as note">📤</button>
+
+            <Link to={`/mail/${mail.prevMailId}`} title="older"><button>&larr;</button></Link>
+            <Link to={`/mail/${mail.nextMailId}`} title="newer"><button>&rarr;</button></Link>
         </header>
-        <h2>{mail.subject}</h2>
-        <p>{mail.from}</p>
-        <p>
-            <span>{mail.to.fullname}</span>
-            <span>{mail.to.email}</span>
-        </p>
+        <main>
+            <h2>{mail.subject}</h2>
+            <p>From:
+                <span>{mail.from}</span>
+            </p>
+            <p>To:
+                <span>{mail.to}</span>
+            </p>
 
-        <p>{new Date(mail.sentAt).toDateString()}</p>
+            <p>{new Date(mail.sentAt).toDateString()}</p>
 
-        <p>{mail.body}</p>
-
-        <footer>
+            <p>{mail.body}</p>
+        </main>
+        {/* <footer>
             <button>facebook</button>
-        </footer>
+        </footer> */}
 
     </section>
 }
