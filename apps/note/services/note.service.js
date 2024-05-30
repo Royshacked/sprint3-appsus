@@ -28,9 +28,15 @@ export const deleteNote = (id) => {
 }
 
 // Update a note by ID
-export const updateNote = (id, newText) => {
+export const updateNote = (id, newText, newBackgroundColor, newFiles) => {
     const notes = loadNotes()
-    const updatedNotes = notes.map((note) => (note.id === id ? { ...note, text: newText } : note))
+    const updatedNotes = notes.map((note) => {
+        if (note.id === id) {
+            return { ...note, text: newText, backgroundColor: newBackgroundColor, files: newFiles }
+        } else {
+            return note
+        }
+    })
     saveNotes(updatedNotes)
     return updatedNotes
 }

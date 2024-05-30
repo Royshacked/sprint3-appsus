@@ -1,0 +1,31 @@
+/* search menu */
+.search-menu {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    background-color: rgb(78, 78, 78);
+    padding: 6px;
+}
+
+.search-menu input[type="text"] {
+    flex-grow: 1;
+    border-radius: 30px;
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    background-color: #f0f0f0;
+}
+
+.search-bar {
+    flex-grow: 1;
+    
+}
+
+.search-buttons {
+    display: flex;
+    margin-left: 10px;
+}
+
+.search-buttons button {
+    margin: 5px;
+}

@@ -1,15 +1,15 @@
-
+// NoteIndex.jsx
 import { NoteList } from '../cmps/NoteList.jsx'
 import { NoteForm } from '../cmps/NoteForm.jsx'
 import { addNote, deleteNote, updateNote, getAllNotes } from '../services/note.service.js'
 
 const { useState } = React
-
+const notepadImage = '../../../assets/img/notepad.jpg'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(getAllNotes())
     const [searchTerm, setSearchTerm] = useState('')
-    const [selectedNoteId, setSelectedNoteId] = useState(null) // Assuming you track the ID of the selected note
+    const [selectedNoteId, setSelectedNoteId] = useState(null)
 
     const handleAddNote = (newNote) => {
         const updatedNotes = addNote(newNote)
@@ -21,8 +21,8 @@ export function NoteIndex() {
         setNotes(updatedNotes)
     }
 
-    const handleUpdateNote = (id, newText) => {
-        const updatedNotes = updateNote(id, newText)
+    const handleUpdateNote = (id, newText, newBackgroundColor) => {
+        const updatedNotes = updateNote(id, newText, newBackgroundColor)
         setNotes(updatedNotes)
     }
 
@@ -38,22 +38,38 @@ export function NoteIndex() {
         setSelectedNoteId(id)
     }
 
+    const bodyStyle = {
+        backgroundImage: `url(${notepadImage})`,
+        backgroundSize: 'contain',
+        minHeight: '100vh'
+    }
+
     return (
-        <div className="NoteIndex">
-            <h1>MissKeepApp</h1>
-            <input
-                type="text"
-                placeholder="Search notes..."
-                value={searchTerm}
-                onChange={handleSearch}
-            />
-            {selectedNoteId === null && <NoteForm onAdd={handleAddNote} />}
-            <NoteList
-                notes={filteredNotes}
-                onDelete={handleDeleteNote}
-                onUpdate={handleUpdateNote}
-                onNoteSelect={handleNoteSelect}
-            />
+        <div style={bodyStyle}>
+            <div className="hero">
+                <div className="search-menu">
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Search notes..."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                        />
+                    </div>
+                        <div className="search-buttons">
+                        </div>
+                    </div>
+                <div className="NoteIndex">
+                    <h1>MissKeepApp</h1>
+                    {selectedNoteId === null && <NoteForm onAdd={handleAddNote} />}
+                </div>
+                <NoteList
+                    notes={filteredNotes}
+                    onDelete={handleDeleteNote}
+                    onUpdate={handleUpdateNote}
+                    onNoteSelect={handleNoteSelect}
+                />
+            </div>
         </div>
     )
 }

@@ -1,59 +1,58 @@
-const { useState } = React
-
-const TEXT_TYPE = 'text'
-const LINK_TYPE = 'link'
-const IMAGE_TYPE = 'image'
-const VIDEO_TYPE = 'video'
+// NoteForm.jsx
+const { useState, useEffect } = React
 
 export function NoteForm({ onAdd }) {
     const [content, setContent] = useState('')
     const [backgroundColor, setBackgroundColor] = useState('#ffffff')
-    const [type, setType] = useState(TEXT_TYPE)
-    const [file, setFile] = useState(null)
+    const [files, setFiles] = useState(null)
 
     const handleSubmit = (ev) => {
         ev.preventDefault()
-        onAdd({ text: content, backgroundColor, type, file })
+        onAdd({ text: content, backgroundColor, files })
         setContent('')
-        setType(TEXT_TYPE)
-        setFile(null)
+        setBackgroundColor('#ffffff')
+        setFiles(null)
     }
 
-    const handleFileChange = (ev) => {
-        const selectedFile = ev.target.files[0]
-        setFile(selectedFile)
+    const handleFileChange = (event) => {
+        const selectedFiles = event.target.files
+        setFiles(selectedFiles)
     }
+    
+    useEffect(() => {
+        if (files && files.length > 0) {
+            onAdd({ text: content, backgroundColor, files })
+            setContent('')
+            setBackgroundColor('#ffffff')
+            setFiles(null)
+        }
+    }, [files, content, backgroundColor])
+    
 
     return (
-        <form onSubmit={handleSubmit}>
-            <textarea
-                value={content}
-                onChange={(ev) => setContent(ev.target.value)}
-                placeholder="Type your note here..."
-            ></textarea>
-
-            <input
-                type="color"
-                value={backgroundColor}
-                onChange={(ev) => setBackgroundColor(ev.target.value)}
-            />
-
-            <select value={type} onChange={(ev) => setType(ev.target.value)}>
-                <option value={TEXT_TYPE}>Text</option>
-                <option value={LINK_TYPE}>Link</option>
-                <option value={IMAGE_TYPE}>Image</option>
-                <option value={VIDEO_TYPE}>Video</option>
-            </select>
-
-            {type === IMAGE_TYPE && (
+        <div className="search-menu">
+            <form onSubmit={handleSubmit}>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Write your note here..."
+                        value={content}
+                        onChange={(ev) => setContent(ev.target.value)}
+                    />
+                </div>
+                <input
+                    type="color"
+                    value={backgroundColor}
+                    onChange={(ev) => setBackgroundColor(ev.target.value)}
+                />
                 <input
                     type="file"
-                    accept="image/*"
+                    accept="image/*, video/*"
                     onChange={handleFileChange}
+                    multiple
                 />
-            )}
-
-            <button type="submit">Add Note</button>
-        </form>
+                <button type="submit">Add Note</button>
+            </form>
+        </div>
     )
 }
