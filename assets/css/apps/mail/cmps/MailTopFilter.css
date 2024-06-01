@@ -54,7 +54,7 @@
 
     .mail-filter select {
         width: 100%;
-        height: 25px;
+        height: min-content;
 
         border-radius: 0;
         border: 0;
