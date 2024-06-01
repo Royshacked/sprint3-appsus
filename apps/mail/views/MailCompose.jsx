@@ -19,22 +19,6 @@ export function MailCompose() {
         if (!mailId && !mailToEdit.id) return
         mailService.get(mailId || mailToEdit.id)
             .then(mail => setMailToEdit(mail))
-    }, [filterBy])
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            mailService.saveDraft(mailToEdit)
-                .then((mail) => {
-                    showSuccessMsg('Draft saved successfully')
-                    setMailToEdit(mail)
-                    setFilterBy({ ...filterBy, ...mailToEdit })
-                })
-                .catch(() => showErrorMsg('Couldn\'nt save draft'))
-        }, 5000)
-
-        return () => {
-            clearInterval(interval)
-        }
     }, [])
 
     function handleChange({ target }) {
