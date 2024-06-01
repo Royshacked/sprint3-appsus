@@ -1,7 +1,14 @@
 .mail-index {
+    position: relative;
     display: grid;
     grid-template-columns:
-        minmax(50px, 1fr) minmax(auto, 5fr);
+        minmax(150px, 1fr) minmax(auto, 9fr);
+}
+
+.back-drop {
+    position: absolute;
+    inset: 0;
+    background-color: #cccccc4a;
 }
 
 .mail-index>* {
@@ -24,6 +31,11 @@
     background-color: var(--main-bg-color);
 }
 
+.mail-index-header .menu-btn {
+    display: none;
+}
+
+
 .mail-index-header .logo {
     display: flex;
     align-items: center;
@@ -41,6 +53,8 @@
 }
 
 .mail-index-side {
+    display: flex;
+    align-items: center;
     grid-column: 1;
 
     display: flex;
@@ -50,18 +64,6 @@
 
     border-block-start: 1px solid lightgray;
     padding: 1em;
-}
-
-.mail-index-side .compose-btn {
-    padding: 1em;
-    border: 0;
-    border-radius: 1em;
-
-    font-size: 1.2em;
-
-    background-color: rgb(194, 240, 255);
-
-
 }
 
 .no-emails {
@@ -96,6 +98,10 @@
     animation: rotation 1s linear infinite;
 }
 
+.open {
+    translate: 0;
+}
+
 @keyframes rotation {
     0% {
         transform: rotate(0deg);
@@ -103,5 +109,54 @@
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* Tablet mode */
+@media only screen and (max-width: 700px) {
+    .mail-index {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mail-index-header h2 {
+        font-size: 1.5em;
+    }
+
+    .mail-index-header img {
+        width: 3em;
+    }
+
+    .mail-index-header .menu-btn {
+        display: block;
+
+        margin-inline-end: 1em;
+        border: 0;
+
+        font-size: 2em;
+        background-color: transparent;
+    }
+
+    .mail-index-side {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+
+        background-color: var(--main-bg-color);
+
+        overflow-x: hidden;
+
+        border: 0;
+        padding-top: 60px;
+        box-shadow: 0px 0px 20px 0px;
+        translate: -100%;
+        transition: 0.2s;
+    }
+
+    .open {
+        translate: 0;
     }
 }
