@@ -1,6 +1,5 @@
 .mail-preview {
-    display: grid;
-    grid-template-columns: 2fr 2fr minmax(150px, 0.5fr);
+    display: flex;
     justify-content: space-between;
     align-items: center;
 
@@ -9,9 +8,22 @@
     color: rgb(75, 71, 71);
 }
 
+.mail-preview div {
+    display: flex;
+}
+
+.mail-preview div .mail-address {
+    width: 300px;
+
+    margin-inline-end: 2em;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .mail-preview span {
     justify-self: start;
-    align-items: start;
+    align-self: start;
     width: max-content;
 }
 

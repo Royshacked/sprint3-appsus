@@ -1,7 +1,8 @@
 .mail-index {
+    /* position: relative; */
     display: grid;
     grid-template-columns:
-        minmax(50px, 1fr) minmax(auto, 5fr);
+        minmax(100px, 1fr) minmax(auto, 9fr);
 }
 
 .mail-index>* {
@@ -41,6 +42,8 @@
 }
 
 .mail-index-side {
+    display: flex;
+    align-items: center;
     grid-column: 1;
 
     display: flex;
@@ -60,8 +63,6 @@
     font-size: 1.2em;
 
     background-color: rgb(194, 240, 255);
-
-
 }
 
 .no-emails {
