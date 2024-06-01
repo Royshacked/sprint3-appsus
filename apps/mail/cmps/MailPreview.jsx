@@ -20,7 +20,7 @@ export function MailPreview({ mail, onRemove, onToggleUnread }) {
             }}>🗑️</button>
             {mail.isRead && <button onClick={(ev) => onToggleUnread(ev, mail, false)} title="mark unread">✉️</button>}
             {!mail.isRead && <button onClick={(ev) => onToggleUnread(ev, mail, true)} title="mark read">📧</button>}
-            <button title="send as note">📤</button>
+            {/* <button title="send as note">📤</button> */}
 
         </span>
     </article>

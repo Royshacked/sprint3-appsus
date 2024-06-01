@@ -79,7 +79,9 @@ export function MailIndex() {
         ev.preventDefault()
         ev.stopPropagation()
 
-        console.log(mail)
+        mailService.save({ ...mail, isRead: isMailRead })
+            .then(() => setFilterBy(prevFilterBy => ({ ...prevFilterBy })))
+
     }
 
     const sideMenuClass = isMenuOpen ? 'open' : ''
