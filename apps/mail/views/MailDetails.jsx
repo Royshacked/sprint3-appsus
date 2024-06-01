@@ -58,16 +58,18 @@ export function MailDetails() {
     if (isLoading) return <div className="loading"></div>
     return <section className="mail-details">
         <header>
-            {mail.isDraft && <button onClick={() => navigate({ pathname: '/mail', search: '?status=draft', })} title="draft">📩</button>}
-            {!mail.isDraft && <Link to="/mail" title="inbox"><button>📩</button></Link>}
+            <div className="crud-btns">
+                <Link to="/mail" title="inbox"><button>📩</button></Link>
+                <button onClick={() => onRemove(mail)} title="remove">🗑️</button>
+                {mail.isRead && <button onClick={() => onMarkUnread(false)} title="mark unread">✉️</button>}
+                {!mail.isRead && <button onClick={() => onMarkUnread(true)} title="mark read">📧</button>}
+                <button title="send as note">📤</button>
+            </div>
 
-            <button onClick={() => onRemove(mail)} title="remove">🗑️</button>
-            {mail.isRead && <button onClick={() => onMarkUnread(false)} title="mark unread">✉️</button>}
-            {!mail.isRead && <button onClick={() => onMarkUnread(true)} title="mark read">📧</button>}
-            <button title="send as note">📤</button>
-
-            <Link to={`/mail/${mail.prevMailId}`} title="older"><button>&larr;</button></Link>
-            <Link to={`/mail/${mail.nextMailId}`} title="newer"><button>&rarr;</button></Link>
+            <div className="nav-btns">
+                <Link to={`/mail/${mail.prevMailId}`} title="older"><button>&larr;</button></Link>
+                <Link to={`/mail/${mail.nextMailId}`} title="newer"><button>&rarr;</button></Link>
+            </div>
         </header>
         <main>
             <h2>{mail.subject}</h2>
@@ -82,9 +84,5 @@ export function MailDetails() {
 
             <p>{mail.body}</p>
         </main>
-        {/* <footer>
-            <button>facebook</button>
-        </footer> */}
-
     </section>
 }

@@ -3,6 +3,9 @@
 }
 
 .mail-details header {
+    display: flex;
+    justify-content: space-between;
+
     border-block-end: 1px solid lightgray;
     border-top-right-radius: 1em;
 
