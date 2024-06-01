@@ -21,7 +21,7 @@
 
 .mail-index-header {
     position: sticky;
-    top: 0;
+    top: 62px;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -53,6 +53,10 @@
 }
 
 .mail-index-side {
+    position: fixed;
+    top: 144px;
+    /* position: fixed;
+    top: 144px; */
     display: flex;
     align-items: center;
     grid-column: 1;
