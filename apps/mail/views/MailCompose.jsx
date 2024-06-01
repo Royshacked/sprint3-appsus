@@ -19,7 +19,7 @@ export function MailCompose() {
         if (!mailId) return
         mailService.get(mailId)
             .then(mail => setMailToEdit(mail))
-    }, [mailToEdit])
+    }, [])
 
     function handleChange({ target }) {
         const { name } = target
