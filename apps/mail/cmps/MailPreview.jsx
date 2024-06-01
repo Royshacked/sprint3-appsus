@@ -1,6 +1,6 @@
 
 
-export function MailPreview({ mail, onRemove }) {
+export function MailPreview({ mail, onRemove, onToggleUnread }) {
 
     return <article className="mail-preview">
         <div>
@@ -18,6 +18,10 @@ export function MailPreview({ mail, onRemove }) {
                 ev.stopPropagation()
                 onRemove(mail)
             }}>🗑️</button>
+            {mail.isRead && <button onClick={(ev) => onToggleUnread(ev, mail, false)} title="mark unread">✉️</button>}
+            {!mail.isRead && <button onClick={(ev) => onToggleUnread(ev, mail, true)} title="mark read">📧</button>}
+            <button title="send as note">📤</button>
+
         </span>
     </article>
 }

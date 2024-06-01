@@ -72,7 +72,14 @@ export function MailIndex() {
         mail.isStarred = !mail.isStarred
 
         mailService.save(mail)
-            .then(() => setFilterBy(prevMails => ({ ...prevMails })))
+            .then(() => setFilterBy(prevFilterBy => ({ ...prevFilterBy })))
+    }
+
+    function onToggleUnread(ev, mail, isMailRead) {
+        ev.preventDefault()
+        ev.stopPropagation()
+
+        console.log(mail)
     }
 
     const sideMenuClass = isMenuOpen ? 'open' : ''
@@ -96,7 +103,7 @@ export function MailIndex() {
 
         {isLoading && <div className="loading"></div>}
         {!isLoading && mails.length === 0 && <h2 className="no-emails">no emails found</h2>}
-        {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} onToggleStar={onToggleStar} />}
+        {!isLoading && mails.length > 0 && <MailList mails={mails} onRemove={onRemove} onToggleStar={onToggleStar} onToggleUnread={onToggleUnread} />}
 
         <Outlet context={[filterBy, onSetFilterBy]} />
     </section>
