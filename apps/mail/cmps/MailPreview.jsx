@@ -17,7 +17,7 @@ export function MailPreview({ mail, onRemove, onToggleUnread }) {
                 ev.preventDefault()
                 ev.stopPropagation()
                 onRemove(mail)
-            }}>🗑️</button>
+            }} title={mail.removedAt ? 'remove email' : 'move to trash'}>🗑️</button>
             {mail.isRead && <button onClick={(ev) => onToggleUnread(ev, mail, false)} title="mark unread">✉️</button>}
             {!mail.isRead && <button onClick={(ev) => onToggleUnread(ev, mail, true)} title="mark read">📧</button>}
             {/* <button title="send as note">📤</button> */}
