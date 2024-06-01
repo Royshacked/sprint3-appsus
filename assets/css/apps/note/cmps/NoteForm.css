@@ -1,6 +1,6 @@
 /* note form */
 .note-form {
-    background-color: #fff;
+    background-color: #4b4b4b36;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -16,8 +16,27 @@
 }
 
 .color-picker {
-    margin: 1dvh;
-    padding: 0.5dvh;
+    appearance: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.color-picker:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 .file-upload-input {

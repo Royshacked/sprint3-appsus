@@ -33,6 +33,3 @@
 @import './apps/note/cmps/NoteForm.css';
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/SearchMenu.css';
-
-
-@import './apps/note/views/Hero.css';

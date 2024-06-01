@@ -6,3 +6,7 @@
     justify-content: center;
     align-items: center
 }
+
+.notes-logo { 
+    max-width: 20dvh;
+}

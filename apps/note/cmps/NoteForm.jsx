@@ -34,7 +34,7 @@ export function NoteForm({ onAdd }) {
     }, [files, content, backgroundColor])
 
     return (
-        <div className="search-menu">
+        <div className="note-form">
             <form onSubmit={handleSubmit}>
                 <div className="search-bar">
                     <input

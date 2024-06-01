@@ -30,12 +30,17 @@ export function NoteIndex() {
     }
 
     const handleUpdateNote = (id, newText, newBackgroundColor, newFiles) => {
-        const updatedNotes = updateNote(id, newText, newBackgroundColor, newFiles) // Pass newFiles to updateNote
+        const updatedNotes = updateNote(id, newText, newBackgroundColor, newFiles)
         setNotes(updatedNotes)
     }
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
+    }
+
+    const handleDuplicate = (duplicatedNote) => {
+        const updatedNotes = addNote(duplicatedNote)
+        setNotes(updatedNotes)
     }
 
     const filteredNotes = notes.filter((note) => {
@@ -56,14 +61,12 @@ export function NoteIndex() {
         <div style={bodyStyle}>
             <div className="hero">
                 <div className="search-menu">
-                    <div className="search-bar">
-                        <input
-                            type="text"
-                            placeholder="Search notes..."
-                            value={searchTerm}
-                            onChange={handleSearch}
-                        />
-                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search notes..."
+                        value={searchTerm}
+                        onChange={handleSearch}
+                    />
                     <div className="search-buttons">
                     </div>
                 </div>
@@ -76,6 +79,7 @@ export function NoteIndex() {
                     onDelete={handleDeleteNote}
                     onUpdate={handleUpdateNote}
                     onNoteSelect={handleNoteSelect}
+                    onDuplicate={handleDuplicate}
                 />
             </div>
         </div>

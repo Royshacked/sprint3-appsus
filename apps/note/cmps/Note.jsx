@@ -1,7 +1,7 @@
 // Note.jsx
 const { useState, useEffect } = React
 
-export function Note({ note, onDelete, onUpdate }) {
+export function Note({ note, onDelete, onUpdate, onDuplicate }) {
     const [isEditing, setIsEditing] = useState(false)
     const [text, setText] = useState(note.text)
     const [backgroundColor, setBackgroundColor] = useState(note.backgroundColor || "#ffffff")
@@ -26,6 +26,17 @@ export function Note({ note, onDelete, onUpdate }) {
 
     const handleSave = () => {
         onUpdate(note.id, text, backgroundColor, files)
+        setIsEditing(false)
+    }
+
+    const handleDuplicate = () => {
+        const duplicatedNote = {
+            id: Date.now(),
+            text,
+            backgroundColor,
+            files,
+        }
+        onDuplicate(duplicatedNote)
         setIsEditing(false)
     }
 
@@ -60,9 +71,11 @@ export function Note({ note, onDelete, onUpdate }) {
     return (
         <div className="note" style={{ backgroundColor }}>
             {isEditing ? (
-                <div>
+                <div className="note-editor">
                     <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
-                    <input type="color" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} />
+                    {renderFiles()}
+                    <input className="color-picker" type="color" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} />
+                    <button onClick={handleDuplicate}>Duplicate</button>
                     <button onClick={handleSave}>Save</button>
                 </div>
             ) : (
