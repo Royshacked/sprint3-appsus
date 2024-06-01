@@ -35,6 +35,7 @@ function query(filterBy = {}) {
                 if (filterBy.isRead === 'true') mails = mails.filter(mail => mail.isRead === true)
                 if (filterBy.isRead === 'false') mails = mails.filter(mail => mail.isRead === false)
             }
+            // console.log(filterBy.status)
             mails = _filterByMailStatus(mails, filterBy.status)
             return mails
         })
@@ -156,7 +157,7 @@ function _filterByMailStatus(mails, status) {
         case 'starred':
             return mails.filter(mail => mail.isStarred)
         case 'sent':
-            return mails.filter(mail => mail.from === loggedinUser.email && !mail.isDraft)
+            return mails.filter(mail => mail.from === loggedinUser.email && !mail.isDraft && !mail.removedAt)
         case 'trash':
             return mails.filter(mail => mail.removedAt)
         case 'draft':
