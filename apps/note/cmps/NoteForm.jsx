@@ -51,7 +51,7 @@ export function NoteForm({ onAdd }) {
                         id="file-upload"
                         className="file-upload-input"
                         type="file"
-                        accept="image/*, video/*"
+                        accept="image/*, video/*, audio/*" 
                         onChange={handleFileChange}
                         multiple
                     />

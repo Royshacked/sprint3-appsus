@@ -47,22 +47,25 @@ export function Note({ note, onDelete, onUpdate, onDuplicate }) {
     const renderFiles = () => {
         return Array.isArray(files) && files.length > 0 && files.map((file, index) => (
             <div key={index}>
-                {file && Object.keys(file).length > 0 && file.type && (file.type.startsWith('image/') || file.type.startsWith('video/')) ? (
+                {file && Object.keys(file).length > 0 && file.type ? (
                     file.type.startsWith('image/') ? (
                         <img src={file.url || URL.createObjectURL(file)} alt={`Image ${index}`} />
-                    ) : (
+                    ) : file.type.startsWith('video/') ? (
                         <video controls>
                             <source src={file.url || URL.createObjectURL(file)} type={file.type} />
                             Your browser does not support the video tag.
                         </video>
-                    )
-                ) : (
-                    file && Object.keys(file).length > 0 && (
+                    ) : file.type.startsWith('audio/') ? (
+                        <audio controls>
+                            <source src={file.url || URL.createObjectURL(file)} type={file.type} />
+                            Your browser does not support the audio tag.
+                        </audio>
+                    ) : (
                         <a href={file.url || URL.createObjectURL(file)} download={file.name}>
                             {file.name}
                         </a>
                     )
-                )}
+                ) : null}
             </div>
         ))
     }
