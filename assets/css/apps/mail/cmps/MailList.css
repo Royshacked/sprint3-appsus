@@ -53,7 +53,7 @@
  }
 
  .mail-list li:hover .mail-btns {
-     display: inline;
+     display: flex;
  }
 
  .mail-list li:hover .mail-date {
