@@ -16,10 +16,26 @@ export function MailCompose() {
 
     useEffect(() => {
         setSearchParams({ ...filterBy, ...mailToEdit })
-        if (!mailId) return
-        mailService.get(mailId)
+        if (!mailId && !mailToEdit.id) return
+        mailService.get(mailId || mailToEdit.id)
             .then(mail => setMailToEdit(mail))
-    }, [mailToEdit])
+    }, [filterBy])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            mailService.saveDraft(mailToEdit)
+                .then((mail) => {
+                    showSuccessMsg('Draft saved successfully')
+                    setMailToEdit(mail)
+                    setFilterBy({ ...filterBy, ...mailToEdit })
+                })
+                .catch(() => showErrorMsg('Couldn\'nt save draft'))
+        }, 5000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
 
     function handleChange({ target }) {
         const { name } = target
