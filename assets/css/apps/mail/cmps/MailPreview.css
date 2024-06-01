@@ -5,11 +5,14 @@
 
     gap: 1em;
 
+    padding-inline-end: 1em;
+
     color: rgb(75, 71, 71);
 }
 
 .mail-preview div {
     display: flex;
+    /* width: 50%; */
 }
 
 .mail-preview div .mail-address {
@@ -17,13 +20,19 @@
 
     margin-inline-end: 2em;
     overflow-x: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
+.mail-preview div .mail-subject {
+    width: 250px;
+
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 .mail-preview span {
-    justify-self: start;
-    align-self: start;
     width: max-content;
 }
 
@@ -34,4 +43,53 @@
 
 .mail-btns {
     display: none;
+}
+
+/* Desktop minus mode */
+@media only screen and (max-width: 960px) {
+    .mail-preview div {
+        flex-direction: column;
+        gap: 0.5em;
+
+        width: 250px;
+    }
+
+    .mail-preview div .mail-address {
+        width: 300px;
+    }
+
+    .mail-preview div .mail-subject {
+        width: 300px;
+    }
+
+    .mail-preview div .mail-subject {
+        font-weight: normal;
+    }
+}
+
+/* Mobile mode */
+@media only screen and (max-width: 550px) {
+    .mail-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .mail-preview div {
+        width: 100%;
+    }
+
+    .mail-preview div .mail-address {
+        width: 200px;
+    }
+
+    .mail-preview div .mail-subject {
+        width: 200px;
+    }
+
+    .mail-preview .mail-date {
+        font-size: 0.8em;
+    }
+
+
 }

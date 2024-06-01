@@ -17,6 +17,7 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [isLoading, setIsLoading] = useState(true)
     const [unreadMailsCount, setUnreadMailsCount] = useState(0)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const navigate = useNavigate()
 
@@ -74,11 +75,13 @@ export function MailIndex() {
             .then(() => setFilterBy(prevMails => ({ ...prevMails })))
     }
 
-    const str = 'roy'
+    const sideMenuClass = isMenuOpen ? 'open' : ''
 
     return <section className="mail-index">
+        {isMenuOpen && <div className="back-drop" onClick={() => setIsMenuOpen(false)}></div>}
         <div className="mail-index-header full">
             <div className="logo">
+                <button onClick={() => setIsMenuOpen(true)} className="menu-btn">☰</button>
                 <h2>
                     Gmail
                 </h2>
@@ -87,9 +90,8 @@ export function MailIndex() {
             <MailTopFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </div>
 
-        <div className="mail-index-side">
-            <Link to="/mail/compose"><button className="compose-btn">Compose</button></Link>
-            <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadMailsCount={unreadMailsCount} />
+        <div className={`mail-index-side ${sideMenuClass}`}>
+            <MailSideFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadMailsCount={unreadMailsCount} isMenuOpen={isMenuOpen} onSetIsMenuOpen={setIsMenuOpen} />
         </div>
 
         {isLoading && <div className="loading"></div>}
