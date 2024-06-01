@@ -1,7 +1,7 @@
 .mail-compose {
-    position: absolute;
-    top: 40%;
-    left: 55%;
+    position: fixed;
+    top: 50%;
+    left: 60%;
 
     z-index: 10;
 
