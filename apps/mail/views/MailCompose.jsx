@@ -16,6 +16,9 @@ export function MailCompose() {
 
     useEffect(() => {
         setSearchParams({ ...filterBy, ...mailToEdit })
+    }, [mailToEdit])
+
+    useEffect(() => {
         if (!mailId) return
         mailService.get(mailId)
             .then(mail => setMailToEdit(mail))
